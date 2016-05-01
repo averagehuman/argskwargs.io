@@ -1,0 +1,60 @@
+
+/* green */
+$nav-bg: #062A05;
+$nav-fg: #5B9235;
+$nav-fg-highlight: #5Bdc35;
+
+/* beige (http://www.colourlovers.com/palette/3996625/typography) */
+$nav-bg: #887E5B;
+$nav-fg: #d5c7a0;
+$nav-fg-highlight: #C0B780;
+$body-text-fg: #4A3A2B;
+$body-link-fg: #E14526;
+
+/* custom */
+$nav-bg: #2E2606;
+$nav-fg: #f6c729;
+$nav-fg-highlight: lemonchiffon;
+$body-text-bg: #FFFFFF;
+$body-text-fg: #4A3A2B;
+$body-link-fg: #D48425;
+$body-link-fg: #AF6721;
+
+/* white on black */
+$nav-bg: #222222;
+$nav-fg: #ffffff;
+$nav-fg-highlight: #cccccc;
+
+/* black on white */
+$nav-bg: #ffffff;
+$nav-fg: #494949;
+$nav-fg-highlight: #393939;
+
+/* grey */
+$nav-bg: #393939;
+$nav-fg: #dedede;
+$nav-fg-highlight: #bebebe;
+$meta-bg: #bebebe;
+
+$body-bg: #d5c7a0;
+$nav-bg: #4A3A2B;
+$nav-fg: lemonchiffon;
+$nav-fg-highlight: #f9d789;
+
+/* blue */
+$nav-bg: #222222;
+$nav-fg: #cccccc;
+$nav-fg-highlight: #222222;
+$body-bg: #ffffff;
+$body-text-bg: #FFFFFF;
+$body-text-fg: #4A3A2B;
+$body-link-fg: firebrick;
+$footer-bg: $body-text-fg;
+$footer-fg: $body-bg;
+$brand-bg: #8B1A1A;
+$brand-bg: #CD2626;
+$brand-bg: #76978C;
+$brand-bg: $body-text-fg;
+$brand-bg-lighter: lighten($body-text-fg, 20%);
+
+

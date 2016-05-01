@@ -1,0 +1,8 @@
+
+<ul class="breadcrumbs">
+    <li><a href="{{ SITEURL }}"><i class="fa fa-home"></i> Home</a></li>
+    {% if article.category %}
+    <li><a href="{{ SITEURL }}/{{article.category.url}}"><i class="fa fa-folder-open-o"></i> {{ article.category }}</a></li>
+    {% endif %}
+</ul>
+

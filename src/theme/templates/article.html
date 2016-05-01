@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}{{ article.title|striptags }}{% endblock %}
+{% block content %}
+<article>
+    <header class="article-header">
+        <h1 class="article-title"><a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark"
+        title="Permalink to {{ article.title|striptags }}">{{ article.title}}</a></h1>
+    </header>
+
+    <div class="article-content">
+    {{ article.content }}
+    </div>
+
+    <section class="article-footer">
+    <div class="row column article-meta subheader">
+    {% if article.category %}
+    <small><i class="fa fa-folder-open-o"></i> <a href="{{ SITEURL }}/{{article.category.url}}">{{ article.category }}</a></small>
+    {% endif %}
+        <span title="{{ article.date.isoformat() }}"><small><i class="fa fa-calendar"></i> {{ article.date.strftime('%-d %B %Y') }}</small></span>
+    {% if article.tags %}
+        {% for tag in article.tags %}
+        <small><i class="fa fa-tag"></i> <a class="" href="{{ SITEURL }}/{{ tag.url }}">{{ tag }} </a> </small>
+        {% endfor %}
+    {% endif %}
+    </div>
+    </section>
+
+    {% if DISQUS_SITENAME and SITEURL and article.status != "draft" %}
+	<h4>Comments</h4>
+    {% include 'disqus_script.html' %}
+    {% endif %}
+</article>
+{% endblock %}

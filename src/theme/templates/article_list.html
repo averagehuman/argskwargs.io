@@ -1,0 +1,19 @@
+
+{% if articles %}
+<ul class="no-bullet article-list">
+{% for article in articles_page.object_list %}
+    <li>
+        <div class="row">
+            <div class="small-12 medium-8 columns">
+                <h4 class="info-title"><a href="{{ SITEURL }}/{{ article.url }}">{{article.title}}</a></h4>
+            </div>
+            <div class="hide-for-small-only medium-4 columns text-right info-meta">
+                {{ article.date.strftime('%-d %B %Y') }}
+            </div>
+        </div>
+    </li>
+{% endfor %}
+</ul>
+{% include 'pagination.html' %}
+
+{% endif %}

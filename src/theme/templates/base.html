@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <!-- Set the viewport width to device width for mobile -->
+    <meta name="viewport" content="width=device-width" />
+
+    <title>{% block title %}{{ SITENAME }}{%endblock%}</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <link href='http://fonts.googleapis.com/css?family=Inconsolata:400,700|Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic|Roboto+Slab:400,700,300,100' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="{{ SITEURL }}/assets/css/app.css" />
+</head>
+
+<body>
+
+<header class="site-header">
+    <div class="row column">
+        <ul class="menu site-menu">
+            <li><a class="button brand" href="{{ SITEURL }}">{{SITENAME}}</a></li>
+            <li><a class="icon" href="/">Home</a></li>
+            <li><a class="icon" href="https://github.com/gmflanagan">Github</a></li>
+            <li><a class="icon" href="https://twitter.com/gmflanagan">Twitter</a></li>
+        </ul>
+    </div>
+</header>
+
+<!-- Main Page Content and Sidebar -->
+<div class="site-content">
+    {% block document %}
+    <div class="row column">
+        {% block preamble %}
+        {% endblock %}
+        {% block content %}{% endblock %}
+    </div>
+    {% endblock %}
+</div>
+<!-- End Main -->
+
+
+<!-- Footer -->
+
+<footer class="footer">
+    <div class="row column">
+        <p>&copy; Gerard Flanagan 2016. All Rights Reserved.</p>
+    </div>
+</footer>
+
+<script type="text/javascript" src="{{SITEURL}}/assets/js/app.js"></script>
+</body>
+</html>

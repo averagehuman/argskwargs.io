@@ -1,0 +1,104 @@
+<html>
+    <head>
+        <title>vuejs svg pills demo</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.21/vue.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.2.1/foundation.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.2.1/plugins/foundation.util.motion.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.2.1/plugins/foundation.util.triggers.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.2.1/plugins/foundation.util.keyboard.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.2.1/plugins/foundation.util.touch.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.2.1/plugins/foundation.slider.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.2.1/foundation.min.css" />
+    </head>
+    <body>
+        <div id="pills">
+            <svg version="1.1" width="540">
+                <svg-pill v-for="stat in stats" :stat="stat" :index="$index" :width="500"></svg-pill>
+            </svg>
+        </div>
+        <script type="text/x-template" id="pill-template">
+            <g>
+            <rect x="0" :y="offsetY" rx="20" ry="20" :width="width" height="30" style="fill:#efefef" />
+            <rect x="0" :y="pillY" rx="20" ry="20" :width="pillWidth" :height="pillHeight" style="fill:darkorange" />
+            <foreignObject x="10" :y="inputY">
+                <body xmlns="http://www.w3.org/1999/xhtml">
+                <form>
+                <div class="slider" data-slider data-initial-start="{{stat.value}}" data-end="100" data-draggable>
+                <div class="slider-handle" data-slider-handle role="slider" tabindex="1"></span>
+                    <div class="slider-fill" data-slider-fill></span>
+                    <input type="hidden" v-model="stat.value" id="sliderOutput{{index}}">
+                </div>
+                </form>
+                </body>
+            </foreignObject>
+            </g>
+        </script>
+        <script type="text/javascript">
+
+            Vue.component('SvgPill', {
+                props: {
+                    stat: Object,
+                    index: Number,
+                    width: Number
+                },
+                template: '#pill-template',
+                replace: true,
+                computed: {
+                    offsetY: function() {
+                        // The vertical position of the slider control. Based on the array index,
+                        // so the first slider will be at y=0 and the rest stacked at fixed
+                        // intervals below.
+                        return this.index * 70
+                    },
+                    pillY: function() {
+                        // The vertical position of the coloured value pill. This is the same as
+                        // the background pill vertical position until the size of the pill is
+                        // reduced to the point where it becomes a circle (the width is then equal
+                        // to the height). At this width and smaller we need to add an offset to make
+                        // sure the pill stays centered rather than drifting to the top left of
+                        // the background pill.
+                        var y = this.offsetY;
+                        var width = this.pillWidth;
+                        var offset = width < 30 ? (30-width)/2.0 : 0;
+                        return y + offset
+                    },
+                    pillWidth: function() {
+                        // The values are taken to be in the range 0..100, but the width of the
+                        // svg element may be larger than this (in pixels), so here we scale the
+                        // width of the coloured pill relative to the svg width.
+                        return this.stat.value * (this.width / 100)
+                    },
+                    pillHeight: function() {
+                        // The height is fixed at 30px until the size of the pill is reduced to the
+                        // point where it becomes a circle (height==width). After this the height is
+                        // set to be equal to the width, ie. the pill becomes a smaller and smaller circle.
+                        var width = this.pillWidth;
+                        return width < 30 ? width : 30
+                    },
+                    inputY: function() {
+                        // The vertical position of the HTML range input.
+                        return this.offsetY + 50
+                    },
+                    inputWidth: function() {
+                        // The width of the HTML range input.
+                        return this.width - 20
+                    }
+                }
+            });
+
+            vue = new Vue({
+                el: '#pills',
+                data: {
+                    stats: [
+                        {value: 10},
+                        {value: 30}
+                    ]
+                },
+                created: function() {
+                    $(document).foundation();
+                }
+            });
+        </script>
+    </body>
+</html>
