@@ -223,6 +223,9 @@ blockquote.bigstyle cite {
 .article-header {
     border-bottom: solid 1px $body-link-fg;
 }
+.article-header a:hover {
+    text-decoration: none;
+}
 .article-date {
     color: #7e7e7e;
     padding: 3px 5px;
@@ -293,7 +296,7 @@ blockquote.bigstyle cite {
 
 .highlight {
     font-family:"Lucida Console", Monaco, monospace;
-    background-color:#efefef;
+    background-color:#f3f5f6;
     color:#002b36;
     white-space:nowrap;
     line-height:1.2em;
