@@ -31,20 +31,20 @@ ARTICLE_URL = 'blog/{category}/{date:%Y}-{slug}/'
 ARTICLE_SAVE_AS = 'blog/{category}/{date:%Y}-{slug}/index.html'
 PAGE_URL = '{slug}/'
 PAGE_SAVE_AS = '{slug}/index.html'
-CATEGORY_URL = 'blog/category/{slug}/'
-CATEGORY_SAVE_AS = 'blog/category/{slug}/index.html'
-CATEGORIES_SAVE_AS =  'blog/category/index.html'
-TAG_URL = 'blog/tag/{slug}/'
-TAG_SAVE_AS = 'blog/tag/{slug}/index.html'
-TAGS_SAVE_AS =  'blog/tag/index.html'
-AUTHOR_URL = 'blog/author/{slug}/'
-AUTHOR_SAVE_AS = 'blog/author/{slug}/index.html'
-AUTHORS_SAVE_AS =  'blog/author/index.html'
-ARCHIVES_SAVE_AS =  'blog/archive/index.html'
+CATEGORY_URL = 'blog/{slug}/'
+CATEGORY_SAVE_AS = 'blog/{slug}/index.html'
+CATEGORIES_SAVE_AS =  'blog/index.html'
+TAG_URL = 'blog/list/tag/{slug}/'
+TAG_SAVE_AS = 'blog/list/tag/{slug}/index.html'
+TAGS_SAVE_AS =  'blog/list/tag/index.html'
+AUTHOR_URL = 'blog/list/author/{slug}/'
+AUTHOR_SAVE_AS = 'blog/list/author/{slug}/index.html'
+AUTHORS_SAVE_AS =  'blog/list/author/index.html'
+ARCHIVES_SAVE_AS =  'blog/list/archive/index.html'
 
 THEME = os.path.join(PATH, 'theme')
 THEME_STATIC_DIR = 'assets'
-THEME_STATIC_PATHS = ['assets']
+THEME_STATIC_PATHS = ['static']
 
 # Feed generation is usually not desired when developing
 FEED_ALL_ATOM = None

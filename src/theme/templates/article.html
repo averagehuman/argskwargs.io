@@ -3,6 +3,7 @@
 {% block content %}
 <article>
     <header class="article-header">
+        <span class="article-date">{{ article.date.strftime('%-d %B %Y') }}</span>
         <h1 class="article-title"><a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark"
         title="Permalink to {{ article.title|striptags }}">{{ article.title}}</a></h1>
     </header>
@@ -16,7 +17,6 @@
     {% if article.category %}
     <small><i class="fa fa-folder-open-o"></i> <a href="{{ SITEURL }}/{{article.category.url}}">{{ article.category }}</a></small>
     {% endif %}
-        <span title="{{ article.date.isoformat() }}"><small><i class="fa fa-calendar"></i> {{ article.date.strftime('%-d %B %Y') }}</small></span>
     {% if article.tags %}
         {% for tag in article.tags %}
         <small><i class="fa fa-tag"></i> <a class="" href="{{ SITEURL }}/{{ tag.url }}">{{ tag }} </a> </small>

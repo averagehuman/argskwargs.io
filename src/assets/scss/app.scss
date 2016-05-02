@@ -220,6 +220,14 @@ blockquote.bigstyle cite {
 .article-header, .article-footer {
     margin-bottom: 1.1rem;
 }
+.article-header {
+    border-bottom: solid 1px $body-link-fg;
+}
+.article-date {
+    color: #7e7e7e;
+    padding: 3px 5px;
+    font-size: 90%;
+}
 .article-content {
     margin-bottom: 3.1rem;
 }
@@ -281,3 +289,25 @@ blockquote.bigstyle cite {
     margin-top: .5em;
   }
 }
+
+
+.highlight {
+    font-family:"Lucida Console", Monaco, monospace;
+    background-color:#efefef;
+    color:#002b36;
+    white-space:nowrap;
+    line-height:1.2em;
+    border-left:3px solid #eee8d5;
+    padding:4px 0px 4px 24px;
+    margin: 20px 0;
+
+}
+.highlight, .highlight pre {
+    overflow-x:auto;
+    overflow-y:hidden;
+    font-size: 16px;
+}
+
+/* pygments code styles */
+@import 'github';
+

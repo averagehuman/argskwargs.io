@@ -23,7 +23,8 @@ var PATHS = {
   ],
   sass: [
     'bower_components/foundation-sites/scss',
-    'bower_components/motion-ui/src/'
+    'bower_components/motion-ui/src/',
+    'src/assets/scss/components'
   ],
   javascript: [
     'bower_components/jquery/dist/jquery.js',
@@ -57,14 +58,14 @@ gulp.task('environ', function (done) {
 // Delete the "dist" folder
 // This happens every time a build starts
 gulp.task('clean', function(done) {
-  rimraf('src/theme/assets', done);
+  rimraf('src/theme/static', done);
 });
 
 // Copy files out of the assets folder
 // This task skips over the "img", "js", and "scss" folders, which are parsed separately
 gulp.task('copy', function() {
   gulp.src(PATHS.assets)
-    .pipe(gulp.dest('src/theme/assets'));
+    .pipe(gulp.dest('src/theme/static'));
 });
 
 // Compile Sass into CSS
@@ -92,7 +93,7 @@ gulp.task('sass', function() {
     .pipe(uncss)
     .pipe(minifycss)
     .pipe($.if(!isProduction, $.sourcemaps.write()))
-    .pipe(gulp.dest('src/theme/assets/css'));
+    .pipe(gulp.dest('src/theme/static/css'));
 });
 
 // Combine JavaScript into one file
@@ -106,7 +107,7 @@ gulp.task('javascript', function() {
   return gulp.src(PATHS.javascript)
     .pipe($.concat('app.js'))
     .pipe(uglify)
-    .pipe(gulp.dest('src/theme/assets/js'));
+    .pipe(gulp.dest('src/theme/static/js'));
 });
 
 // Copy images to the "dist" folder
@@ -118,7 +119,7 @@ gulp.task('images', function() {
 
   return gulp.src('src/assets/img/**/*')
     .pipe(imagemin)
-    .pipe(gulp.dest('src/theme/assets/img'));
+    .pipe(gulp.dest('src/theme/static/img'));
 });
 
 // build all assets
