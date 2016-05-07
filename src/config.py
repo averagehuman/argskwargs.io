@@ -27,8 +27,8 @@ ARTICLE_PATHS = ['articles']
 ARTICLE_EXCLUDES = ['img']
 
 USE_FOLDER_AS_CATEGORY = True
-ARTICLE_URL = 'blog/{category}/{date:%Y}-{slug}/'
-ARTICLE_SAVE_AS = 'blog/{category}/{date:%Y}-{slug}/index.html'
+ARTICLE_URL = 'blog/{category}/{slug}/'
+ARTICLE_SAVE_AS = 'blog/{category}/{slug}/index.html'
 PAGE_URL = '{slug}/'
 PAGE_SAVE_AS = '{slug}/index.html'
 CATEGORY_URL = 'blog/{slug}/'
@@ -59,7 +59,7 @@ PLUGIN_PATHS = [
     os.path.join(BASEDIR, 'plugins'),
 ]
 PLUGINS = [
-    'youtube', 'sitemap', 'jsfiddle',
+    'youtube', 'sitemap', 'jsfiddle', 'render_math',
 ]
 
 SITEMAP = {
