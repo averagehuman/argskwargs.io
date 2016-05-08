@@ -137,8 +137,8 @@ To demonstrate the general case use induction on \\(n\\), that is, assume \\(n>2
 and that the result has been proved for values less than \\(n\\). Now, by
 assumption, we have that \\(p \\nmid a_i \\text{ for } i=1,\\dots,n\\), and so:
 
-+ \\(p \\nmid a_1\\) and \\(p \\nmid a_n\\) are given
-+ \\(p \\nmid a_2 \\cdots a_{n-1}\\) by the induction hypothesis
++ \\(p \\nmid a_n\\) is given
++ \\(p \\nmid a_1 \\cdots a_{n-1}\\) by the induction hypothesis
 
 and it therefore follows by the already proven case \\(n=2\\) that
 \\(p \\nmid a_1a_2 \\cdots a_n\\). \\(\\Box\\)

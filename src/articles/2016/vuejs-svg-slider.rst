@@ -9,7 +9,7 @@ VueJS First Steps - SVG Slider Component
 
 
 `VueJS`_  is a reactive javascript framework that will feel reasonably familiar
-to anyone that has used `knockout`_ or `angular`_. Like those other frameworks,
+to anyone that has used either `knockoutjs`_ or `angular`_. Like those other frameworks,
 VueJS features two-way binding between data and view, self-contained
 components and templatised DOM fragments annotated inline with loops and
 conditionals.
@@ -45,12 +45,12 @@ decisions. Similarly, there are no kitchen-sink utilities such as angular's
 `$http`_ or `$cookies`_ , but there are `plugins`_ that you can use or create to
 provide equivalent functionality.
 
+Vue can be dropped into a page as a single script tag which is useful for small
+apps or for quick prototyping. But it also supports modularisation within
+`a larger application`_.
+
 VueJS 1.0 `was released last year`_ and an upcoming backwards-compatible
 version 2 `was recently announced`_.
-
-After a brief play, I like it. It's slick. It's modern. It's easy to reason about.
-It can be a single script tag on a page or a module in `a larger application`_.
-So yeah.
 
 
 Example
@@ -72,7 +72,7 @@ simply a vertical sequence of these input+pill pairs at hard-coded intervals.
 
 .. _vuejs: https://vuejs.org
 .. _angular: https://angularjs.org/
-.. _knockout: http://knockoutjs.com/
+.. _knockoutjs: http://knockoutjs.com/
 .. _vuejs docs: https://vuejs.org/examples/firebase.html
 .. _$http: https://docs.angularjs.org/api/ng/service/$http
 .. _$cookies: https://docs.angularjs.org/api/ngCookies/service/$cookies
