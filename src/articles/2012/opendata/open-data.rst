@@ -7,6 +7,21 @@ Open Data Principles
 :author: gmflanagan
 
 
+.. container:: callout primary
+
+    **Update May 2016:** The complaint below about Northern Ireland's absence from the
+    data sets on `data.gov.uk`_ has been somewhat redressed since this post was first
+    published, but there are still some issues.  Yes, there is some nice N.I. data
+    available via the site, but there still seems to be a question over what data is
+    *said* to be available, and what data is *actually* available.
+    On the one hand, there is a range of files published by `belfast city council`_ and
+    `opendatani`_ in multiple formats (including `a list of bus stops with coordinates`_!).
+    So that's good.  But other publishers really don't provide anything useful - the seven
+    data sets supposedly made available by the `PSNI`_ have urls which redirect to their
+    website's front page! And `Northern Ireland Spatial Data Infrastructure's`_ 587 alleged
+    data sets appear to be garbage, unfortunately. But still, overall a positive
+    development.
+
 .. epigraph::
 
     Open data is about public bodies publishing and freely licensing the
@@ -15,11 +30,11 @@ Open Data Principles
     non-commercial ends.
 
 There has been a growing awareness of open data principles in recent years and an
-appreciation of the economic benefits that might be had by enforcing those
+appreciation of the social and economic benefits that might be had by enforcing those
 principles. The vice-president of the European Commission Neelie Kroes,
-while launching the `Open Data Strategy for Europe`_, points out the basic fact that
+while launching the `Open Data Strategy for Europe`_, highlighted the basic fact that
 taxpayers have paid for the information to be collected and therefore they should
-not be restricted in there ability to access it. She goes on to propose:
+not be restricted in their ability to access it. She went on to propose:
 
 + Making it a general rule that all documents made accessible by public sector
   bodies can be re-used for any purpose, commercial or non-commercial, unless
@@ -54,7 +69,7 @@ government site `data.gov.uk`_
 But it should be pointed out that `data.gov.uk`_ is primarily British (and in
 fact English) in scope. Coverage is actually variable in the non-English regions
 and, in the case of Northern Ireland in particular, none of the Police,
-Health, Schools, or Roads data sets extend to Northern Irish postal districts.
+Health, Schools or Roads data sets extend to Northern Irish postal districts.
 
 
 Public Transport
@@ -83,6 +98,9 @@ And the specific data sets to be made available are given as:
 
 Again, no mention of N.I. or `Translink`_.
 
+A Freedom of Information request `was recently made to Translink`_ for bus stop location
+data, but it was refused.
+
 
 .. _data.gov.uk: http://data.gov.uk/
 .. _in a co-authored article in The Times: http://eprints.ecs.soton.ac.uk/23090/1/Times%20OpEd%20TBL-NRS%20Final.pdf
@@ -91,4 +109,10 @@ Again, no mention of N.I. or `Translink`_.
 .. _Translink: http://www.translink.co.uk/
 .. _direct.gov.uk Transport and Travel site: http://www.direct.gov.uk/en/TravelAndTransport/index.htm
 .. _Open Data Strategy for Europe: http://europa.eu/rapid/pressReleasesAction.do?reference=IP/11/1524
+.. _was recently made to Translink: http://www.whatdotheyknow.com/body/nithco_translink
+.. _opendatani: https://data.gov.uk/publisher/open-data-ni
+.. _belfast city council: https://data.gov.uk/publisher/belfast-city-council
+.. _psni: https://data.gov.uk/publisher/police-service-of-northern-ireland
+.. _northern ireland spatial data infrastructure's: https://data.gov.uk/publisher/northern-ireland-spatial-data-infrastructure
+.. _a list of bus stops with coordinates: https://data.gov.uk/dataset/translink-bus-stop-list
 
