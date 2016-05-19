@@ -245,8 +245,6 @@ blockquote.bigstyle cite {
 .article-meta a, .article-meta span {
     margin-right: 0.5rem;
 }
-.article-content {
-}
 .article-content img {
     margin-bottom: 1em;
 }
@@ -257,6 +255,9 @@ blockquote.bigstyle cite {
     border: 0;
 }
 .article-content blockquote p {
+}
+.article-content h2 {
+    margin-top: 1.6rem;
 }
 .article-tags {
     margin-top: 2em;

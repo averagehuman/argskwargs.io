@@ -49,7 +49,7 @@ def idivide(a, b):
     r = 0
     while a != b:
         r = a - b
-        if a > b:
+        if r > 0:
             a = r
             yield b
         else:

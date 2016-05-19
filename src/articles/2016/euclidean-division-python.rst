@@ -21,7 +21,7 @@ algorithm:
 
 Since v3.5, there is an implementation in C that uses `Lehmer's Algorithm`_ when the
 input numbers are large, but falls back to the standard method for smaller inputs. The
-basic loop in the simple case is equivalent to the python code:
+basic loop in the simple case is similar to the same python code:
 
 .. code-block:: c
 
@@ -31,8 +31,8 @@ basic loop in the simple case is equivalent to the python code:
         x = t;
     }
 
-The **gcd** function can now be found in the `math`_ module and `fractions.gcd`_ is
-deprecated.  (The python issue is `22486`_ and the implementation is
+This new **gcd** function can now be found in the `math`_ module and `fractions.gcd`_
+is deprecated.  (The python issue is `22486`_ and the implementation is
 `here <https://hg.python.org/cpython/file/tip/Objects/longobject.c#l4480>`_).
 
 
@@ -146,7 +146,7 @@ in a single step by using the modulus.
         r = 0
         while a != b:
             r = a - b
-            if a > b:
+            if r > 0:
                 a = r
                 yield b
             else:

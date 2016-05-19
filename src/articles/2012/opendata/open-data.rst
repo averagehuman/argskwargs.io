@@ -1,6 +1,6 @@
 
-Open Data Principles
-####################
+Open Data N.I.
+##############
 
 :date: 2012-02-15 08:00
 :category: Open Data
@@ -9,18 +9,19 @@ Open Data Principles
 
 .. container:: callout primary
 
-    **Update May 2016:** The complaint below about Northern Ireland's absence from the
+    **Update May 2016:** This is a heavily edited version of a post from a short-lived
+    blog I had a few years ago. The complaint about Northern Ireland's absence from the
     data sets on `data.gov.uk`_ has been somewhat redressed since this post was first
-    published, but there are still some issues.  Yes, there is some nice N.I. data
+    published, but there are still some issues.  Yes, there is now more N.I. data
     available via the site, but there still seems to be a question over what data is
     *said* to be available, and what data is *actually* available.
     On the one hand, there is a range of files published by `belfast city council`_ and
     `opendatani`_ in multiple formats (including `a list of bus stops with coordinates`_!).
     So that's good.  But other publishers really don't provide anything useful - the seven
     data sets supposedly made available by the `PSNI`_ have urls which redirect to their
-    website's front page! And `Northern Ireland Spatial Data Infrastructure's`_ 587 alleged
-    data sets appear to be garbage, unfortunately. But still, overall a positive
-    development.
+    website's front page! Not cool. And the 587 alleged data sets from
+    `Northern Ireland Spatial Data Infrastructure`_ appear to be garbage unfortunately.
+    But still, overall a positive development.
 
 .. epigraph::
 
@@ -29,12 +30,12 @@ Open Data Principles
     formats so that it may be consumed electronically either for commercial or
     non-commercial ends.
 
-There has been a growing awareness of open data principles in recent years and an
+There has been a growing awareness of `open data principles`_ in recent years and an
 appreciation of the social and economic benefits that might be had by enforcing those
-principles. The vice-president of the European Commission Neelie Kroes,
-while launching the `Open Data Strategy for Europe`_, highlighted the basic fact that
-taxpayers have paid for the information to be collected and therefore they should
-not be restricted in their ability to access it. She went on to propose:
+principles. The vice-president of the European Commission Neelie Kroes, launching the
+`Open Data Strategy for Europe`_, highlighted the basic fact that taxpayers have paid
+for the information to be collected and therefore they should not be restricted in
+their ability to access it. She proposed:
 
 + Making it a general rule that all documents made accessible by public sector
   bodies can be re-used for any purpose, commercial or non-commercial, unless
@@ -51,10 +52,10 @@ not be restricted in their ability to access it. She went on to propose:
 Open Data - GB
 ==============
 
-In the same document, the United Kingdom is held up as an exemplar of an
-open-data-aware state with some substantial initiatives under way.
-Tim Berners-Lee and Nigel Shadbolt, `in a co-authored article in The Times`_,
-write about how they had looked forward to
+In the same document, the United Kingdom is held up as an open-data-aware state
+with some substantial initiatives under way.  Tim Berners-Lee and Nigel Shadbolt
+co-authored `an article in The Times`_ where they write about how they had looked
+forward to
 
 .. epigraph::
 
@@ -66,10 +67,11 @@ write about how they had looked forward to
 and then go on to say how this world has been realised with the central
 government site `data.gov.uk`_
 
-But it should be pointed out that `data.gov.uk`_ is primarily British (and in
-fact English) in scope. Coverage is actually variable in the non-English regions
-and, in the case of Northern Ireland in particular, none of the Police,
-Health, Schools or Roads data sets extend to Northern Irish postal districts.
+But although `data.gov.uk`_ is a welcome development, it should be pointed out that
+it is primarily British (and in fact English) in scope. Coverage seems to be variable
+in the non-English regions and, in the case of Northern Ireland in particular, none
+of the Police, Health, Schools or Roads data sets extend to Northern Irish postal
+districts.
 
 
 Public Transport
@@ -101,9 +103,17 @@ Again, no mention of N.I. or `Translink`_.
 A Freedom of Information request `was recently made to Translink`_ for bus stop location
 data, but it was refused.
 
+Culture Change
+==============
+
+You can understand political hesitancy and bureaucratic inertia when it comes to
+releasing public sector data in Northern Ireland, but it is a worthwhile effort
+to promote cultural change in this area. Open data should ultimately be the
+*object* of data collection rather than an auxiliary chore.
+
 
 .. _data.gov.uk: http://data.gov.uk/
-.. _in a co-authored article in The Times: http://eprints.ecs.soton.ac.uk/23090/1/Times%20OpEd%20TBL-NRS%20Final.pdf
+.. _an article in The Times: http://eprints.ecs.soton.ac.uk/23090/1/Times%20OpEd%20TBL-NRS%20Final.pdf
 .. _Department for Regional Development: http://www.drdni.gov.uk/index/aboutus.htm
 .. _Further Detail on Open Data Measures in the Autumn Statement 2011: http://www.cabinetoffice.gov.uk/sites/default/files/resources/Further_detail_on_Open_Data_measures_in_the_Autumn_Statement_2011.pdf
 .. _Translink: http://www.translink.co.uk/
@@ -113,6 +123,7 @@ data, but it was refused.
 .. _opendatani: https://data.gov.uk/publisher/open-data-ni
 .. _belfast city council: https://data.gov.uk/publisher/belfast-city-council
 .. _psni: https://data.gov.uk/publisher/police-service-of-northern-ireland
-.. _northern ireland spatial data infrastructure's: https://data.gov.uk/publisher/northern-ireland-spatial-data-infrastructure
+.. _northern ireland spatial data infrastructure: https://data.gov.uk/publisher/northern-ireland-spatial-data-infrastructure
 .. _a list of bus stops with coordinates: https://data.gov.uk/dataset/translink-bus-stop-list
+.. _open data principles: https://okfn.org/opendata/
 

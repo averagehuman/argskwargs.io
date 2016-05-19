@@ -11,7 +11,7 @@ SITENAME = os.environ.get('PELICAN_SITENAME', 'Pelican Blog')
 
 
 if DEBUG:
-    SITEURL = 'http://127.0.0.1:8079'
+    SITEURL = 'http://localhost:8079'
 else:
     SITEURL = os.environ.get('PELICAN_SITEURL', 'http://localhost')
 

@@ -68,7 +68,7 @@ Elementary Rules
 Euclid's Lemma
 --------------
 
-Euclid's Lemma relates to an integer's prime divisors. First, a preliminary
+Euclid's Lemma relates to an integer's prime divisors. To prove it requires a preliminary
 theorem.
 
 **Theorem.** Given two integers, \\(a\\) and \\(b\\), there exist integers \\(u\\)
@@ -110,7 +110,7 @@ and \\(b\\), and therefore, since \\(a\\) and \\(b\\) are coprime, \\(d = 1\\). 
 **Theorem (Euclid's Lemma)** Let \\(p\\) be prime and \\(a_1, a_2,\\dots,a_n \\in \\mathbb{Z}\\)
 such that \\(p \\mid a_1a_2\\cdots a_n\\) then \\(p \\mid a_i\\) for some \\(i=1,\\dots,n\\).
 
-**Proof:** We prove the contrapositive, ie. if \\(p \\nmid a_i\\) for
+**Proof [P. M. Cohn]:** We prove the contrapositive, ie. if \\(p \\nmid a_i\\) for
 \\(i=1,\\dots,n\\) then \\(p \\nmid a_1a_2 \\cdots a_n\\).
 
 For \\(n=1\\) there is nothing to prove, so begin with the case \\(n=2\\). Let

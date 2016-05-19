@@ -3,25 +3,23 @@
         
 def jpermute(iterable):
     """
-    Iterator that returns all permutations of iterable.
-    
-    The algorithm is the Johnson-Trotter algorithm and the permutations are returned
-    in non-lexicographic order.
+    Use the Johnson-Trotter algorithm to return all permutations of iterable.
     """
     sequence = list(iterable)
     length = len(sequence)
     indices = range(1, length+1)
+    # the list of directed integers: [-1, 1], [-1, 2], ...
     state = [[-1, idx] for idx in indices]
     # add sentinels at the beginning and end
     state = [[-1, length+1]] + state + [[-1, length+1]]
-    mobile_index = mobile_direction = direction = value = None
+    # the first permutation is the sequence itself
     yield sequence
+    mobile_index = mobile_direction = direction = value = None
     while True:
         # 1. find the highest mobile
         mobile = -1
         for idx in indices:
-            direction = state[idx][0]
-            value = state[idx][1]
+            direction, value = state[idx]
             if value > mobile and value > state[idx+direction][1]:
                 # value is mobile and greater than the previous mobile
                 mobile = value

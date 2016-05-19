@@ -28,7 +28,7 @@ in \\(\\mathbb{Z}\\).
 
     a = bq + r  \text{ where } 0 \leq r < b \label{a}\tag{1}
 
-**Proof [Cohn]** It is easy to establish the result using rational numbers:
+**Proof [P. M. Cohn]** It is easy to establish the result using rational numbers:
 let \\(q\\) be \\(\\lfloor \\frac{a}{b} \\rfloor\\) the largest integer not exceeding
 \\(\\frac{a}{b}\\), then
 
