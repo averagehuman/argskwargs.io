@@ -62,7 +62,9 @@ code, pre, tt, kbd {
     font-size: 18px;
     color: #222;
 }
-
+blockquote, blockquote p {
+    color: #7a7a7a;
+}
 .site-header {
     width: 100%;
     margin-top: 12px;
@@ -297,15 +299,20 @@ blockquote.bigstyle cite {
 
 .highlight {
     font-family:"Lucida Console", Monaco, monospace;
-    background-color:#f3f5f6;
+    background-color:#f7f9fa;
     color:#002b36;
     white-space:nowrap;
     line-height:1.2em;
-    border-left:3px solid #eee8d5;
+    border:1px solid #ded8d5;
+    border-radius: 4px;
     padding:4px 0px 4px 24px;
     margin: 20px 0;
 
 }
+.highlight pre {
+    padding: 8px 0;
+}
+
 .highlight, .highlight pre {
     overflow-x:auto;
     overflow-y:hidden;

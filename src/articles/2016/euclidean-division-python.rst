@@ -9,7 +9,7 @@ Greatest Common Divisor (Python)
 
 
 The **gcd (Greatest Common Divisor)** function prior to Python version 3.5 is a pure
-python function found in the standard library's `fractions`_ module. It uses a standard
+python function found in the standard library's `fractions`_ module. It uses the common
 algorithm:
 
 .. code-block:: python
@@ -21,7 +21,7 @@ algorithm:
 
 Since v3.5, there is an implementation in C that uses `Lehmer's Algorithm`_ when the
 input numbers are large, but falls back to the standard method for smaller inputs. The
-basic loop in the simple case is similar to the same python code:
+basic loop in the simple case is as above:
 
 .. code-block:: c
 
@@ -133,7 +133,8 @@ in a single step by using the modulus.
             [1071, 462, 462, 147, 147, 147, 21, 21, 21, 21, 21, 21, 21]
 
         ie. 462 is taken from 1071 twice (q=2), 147 is taken from 462 three times (q=3),
-        and 21 is taken from 147 seven times (q=7).
+        and 21 is taken from 147 seven times (q=7). But insofar as you only want
+        to calculate the GCD, the actual value of q isn't important.
 
         """
         a = int(a)

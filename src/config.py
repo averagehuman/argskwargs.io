@@ -67,3 +67,9 @@ SITEMAP = {
 }
 # Uncomment following line if you want document-relative URLs when developing
 #RELATIVE_URLS = True
+
+MATH_JAX = {
+    'align': 'left',
+    'indent': '2em',
+} 
+

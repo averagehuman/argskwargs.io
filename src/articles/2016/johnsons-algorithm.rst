@@ -19,40 +19,40 @@ Name rings a bell...
 ====================
 
 What wikipedia calls the `Steinhaus-Johnson-Trotter Algorithm`_ is a method of generating
-all permutations of a given sequence and was apparently known to 17th Century bell ringers!
+all permutations of a given sequence and was apparently known to 17th Century bell ringers!?
 A feature of the algorithm is that each successive permutation differs from the previous
 permutation by a single transposition (one element is swapped with another), and these
 repeated transpositions follow a fairly natural pattern:
 
 .. code-block:: bash
 
-    ['A', 'B', 'C', 'D']
-    ['A', 'B', 'D', 'C']
-    ['A', 'D', 'B', 'C']
-    ['D', 'A', 'B', 'C']
-    ['D', 'A', 'C', 'B']
-    ['A', 'D', 'C', 'B']
-    ['A', 'C', 'D', 'B']
-    ['A', 'C', 'B', 'D']
-    ['C', 'A', 'B', 'D']
-    ['C', 'A', 'D', 'B']
-    ['C', 'D', 'A', 'B']
-    ['D', 'C', 'A', 'B']
-    ['D', 'C', 'B', 'A']
-    ['C', 'D', 'B', 'A']
-    ['C', 'B', 'D', 'A']
-    ['C', 'B', 'A', 'D']
-    ['B', 'C', 'A', 'D']
-    ['B', 'C', 'D', 'A']
-    ['B', 'D', 'C', 'A']
-    ['D', 'B', 'C', 'A']
-    ['D', 'B', 'A', 'C']
-    ['B', 'D', 'A', 'C']
-    ['B', 'A', 'D', 'C']
-    ['B', 'A', 'C', 'D']
+    ['A', 'B', 'C', 'D']     _ _ _ _
+    ['A', 'B', 'D', 'C']     _ _ * *
+    ['A', 'D', 'B', 'C']     _ * * _
+    ['D', 'A', 'B', 'C']     * * _ _
+    ['D', 'A', 'C', 'B']     _ _ * *
+    ['A', 'D', 'C', 'B']     * * _ _
+    ['A', 'C', 'D', 'B']     _ * * _
+    ['A', 'C', 'B', 'D']     _ _ * *
+    ['C', 'A', 'B', 'D']     * * _ _
+    ['C', 'A', 'D', 'B']     _ _ * *
+    ['C', 'D', 'A', 'B']     _ * * _
+    ['D', 'C', 'A', 'B']     * * _ _
+    ['D', 'C', 'B', 'A']     _ _ * *
+    ['C', 'D', 'B', 'A']     * * _ _
+    ['C', 'B', 'D', 'A']     _ * * _
+    ['C', 'B', 'A', 'D']     _ _ * *
+    ['B', 'C', 'A', 'D']     * * _ _
+    ['B', 'C', 'D', 'A']     _ _ * *
+    ['B', 'D', 'C', 'A']     _ * * _
+    ['D', 'B', 'C', 'A']     * * _ _
+    ['D', 'B', 'A', 'C']     _ _ * *
+    ['B', 'D', 'A', 'C']     * * _ _
+    ['B', 'A', 'D', 'C']     _ * * _
+    ['B', 'A', 'C', 'D']     _ _ * *
 
-So it is easy to imagine how this pattern may have been discovered by `Change Ringers`_ ringing
-massive church bells in sequence:
+So it's not hard to imagine how this pattern may have been discovered by `Change Ringers`_
+ringing massive church bells in sequence:
 
 .. pull-quote::
 
@@ -65,22 +65,30 @@ massive church bells in sequence:
 The Algorithm
 =============
 
-Take the case n = 4 say, so we want to generate all permutations of the set {1, 2, 3, 4}.
+The algorithm itself is concerned with permutations of :math:`S(n)`, the set of integers
+
+.. math::
+
+    1, 2, 3, ..., n
+    
+To fix ideas, let's say :math:`n = 4` and we want to generate all permutations of
+:math:`{1, 2, 3, 4}`.
+
 Each element of the set is given a flag - 'left' or 'right' - which determines the direction
 that an element is "looking". You start off with the sequence:
 
-.. epigraph::
+.. code-block:: bash
 
     ['left',1], ['left',2], ['left',3], ['left',4]
-
-So all elements are initially looking left. Then in the course of the algorithm, you may
+    
+So all elements are initially looking left.  And if in the course of the algorithm you
 have the situation:
 
-.. epigraph::
+.. code-block:: bash
 
     ['left',3], ['right',2], ['right',1], ['left',4]
-
-in which case, you say:
+    
+then you say:
 
 + 1 sees 4
 + 2 sees 1
@@ -96,11 +104,12 @@ above, both 2 and 4 are mobile.
 
 Then the algorithm is:
 
-- find the highest mobile; if none exists, stop
-- swap this mobile with the element it sees
-- reverse the direction flags of any element larger than the mobile
+1. find the highest mobile; if none exists, stop
+2. swap this mobile with the element it sees
+3. reverse the direction flags of any element larger than the mobile
+4. repeat
 
-In coding the algorithm (following Seroul), sentinels with value 1 bigger than n are added
+In coding the algorithm (following Seroul), sentinels with value :math:`n+1` are added
 at either end of the sequence, this means that any element which ends up at the beginning
 looking left, or at the end looking right, will always see a larger element and so will
 never be considered mobile. This removes the need to treat the left and rightmost
@@ -116,19 +125,28 @@ A generator function.
     def jpermute(iterable):
         """
         Use the Johnson-Trotter algorithm to return all permutations of iterable.
+
+        The algorithm is applied to a 1-based set of integers representing the indices
+        of the given iterable, then a shallow copy of iterable is mutated and returned
+        for each successive permutation.
         """
+        # A shallow copy of 'iterable'. This is what is mutated and yielded for each perm.
         sequence = list(iterable)
         length = len(sequence)
         indices = range(1, length+1)
-        # the list of directed integers: [-1, 1], [-1, 2], ...
+
+        # The list of directed integers: [-1, 1], [-1, 2], ...
         state = [[-1, idx] for idx in indices]
-        # add sentinels at the beginning and end
+
+        # Add sentinels at the beginning and end
         state = [[-1, length+1]] + state + [[-1, length+1]]
-        # the first permutation is the sequence itself
+
+        # The first permutation is the sequence itself
         yield sequence
+
         mobile_index = mobile_direction = direction = value = None
         while True:
-            # 1. find the highest mobile
+            # 1. Find the highest mobile
             mobile = -1
             for idx in indices:
                 direction, value = state[idx]
@@ -143,23 +161,26 @@ A generator function.
             if mobile == -1:
                 break
             
-            # 2. swap the mobile with the element it 'sees'
+            # 2. Swap the mobile with the element it 'sees'
             sees = mobile_index + mobile_direction
+            # ... first update the state
             state[mobile_index], state[sees] = state[sees], state[mobile_index]
+            # ... then update the sequence
             sequence[mobile_index-1], sequence[sees-1] = sequence[sees-1], sequence[mobile_index-1]
             
-            # 3. switch the direction of elements greater than mobile
+            # 3. Switch the direction of elements greater than mobile
             if mobile < length:
                 for idx in indices:
                     if state[idx][1] > mobile:
                         state[idx][0] = -state[idx][0]
+
             yield sequence
  
-Speed
+Notes
 -----
 
-This is quicker than my original code but nowhere near competive with
-`itertools.permutations`_ which is implemented in C.
+This is quicker than my original code but nowhere near competitive with the C code of the
+standard library's `itertools.permutations`_.
 
 .. code-block:: bash
 
@@ -185,8 +206,6 @@ Compare to:
     $ python2 -m timeit 'from itertools import permutations;list(permutations("ABCDEF"))'
     10000 loops, best of 3: 44.9 usec per loop
 
-Notes
------
 
 The original code returned a new list for each permutation but there was a big speedup
 by returning the same mutated list each time.
