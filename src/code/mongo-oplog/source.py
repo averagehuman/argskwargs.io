@@ -1,16 +1,26 @@
 """
 MongoDB Create/Update/Delete activity simulator.
 
-Requires: gevent, python-eve and fake-factory.
++ Runs a python-eve/flask HTTP server as a REST interface to the database. 
++ Runs separate green threads that loop continuously, randomly creating,
+  updating and deleting.
+
+Usage: python source.py
+
+Ctrl-C to stop.
+
+Lowering ACTIVITY_MAX_WAIT will increase the request rate.
+
+Requires:  gevent, python-eve and fake-factory.
+Tested on: Python 3.4
 """
 
 import json
 import random
 from datetime import datetime
 
-import grequests
+import grequests # calls gevent.monkey.patch_all(thread=False, select=False)
 import gevent
-import gevent.monkey
 import gevent.wsgi
 import pymongo
 import eve
@@ -139,7 +149,7 @@ def activity_logger(db):
     while True:
         usercount = db.users.count()
         timestamp = datetime.now().strftime(cfg.EVE_SETTINGS['DATE_FORMAT'])
-        msg = 'There are %s (%s) users at %s' % (usercount, len(USER_SET), timestamp)
+        msg = 'There are %s (%s) users on %s' % (usercount, len(USER_SET), timestamp)
         print(msg)
         gevent.sleep(cfg.ACTIVITY_STATUS_WAIT)
 
@@ -161,7 +171,7 @@ def populate():
 
 def create():
     """
-    Create new users.
+    Continuously create new users.
     """
     while True:
         if random.random() < cfg.CREATE_LIKELIHOOD:
@@ -171,7 +181,7 @@ def create():
 
 def update():
     """
-    Update existing users.
+    Continuously update existing users at random.
     """
     while True:
         if USER_SET and random.random() < cfg.DELETE_LIKELIHOOD:
@@ -203,7 +213,7 @@ def update():
 
 def delete():
     """
-    Delete existing users.
+    Continuously delete existing users at random.
     """
     while True:
         if USER_SET and random.random() < cfg.DELETE_LIKELIHOOD:
