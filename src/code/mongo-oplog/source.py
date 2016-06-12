@@ -15,99 +15,16 @@ import gevent.wsgi
 import pymongo
 import eve
 import faker
-from faker.providers.color import Provider as FakeColorProvider
 
+import config as cfg
 
-SERVER_ADDRESS = ('127.0.0.1', 5000)
-HEADERS = {'Content-Type': 'application/json'}
-FAKER_LOCALE = 'en_GB'
-MAX_CONCURRENCY = 50
-
-# activity parameters
-ACTIVITY_INITIAL_DELAY = 4   # delay before create/update/delete activity begins
-ACTIVITY_MAX_WAIT = 5        # upper limit to waits between creates/updates/deletes
-ACTIVITY_STATUS_WAIT = 3     # wait between status messages
-CREATE_LIKELIHOOD = 0.4
-DELETE_LIKELIHOOD = 0.3
-UPDATE_LIKELIHOOD = 0.4
-
-# user api
+# cache of (userid, etag) pairs
 USER_SET = set()
-USER_INITIAL_POPULATION = 100
-USER_CREATE_URL = 'http://%s:%s/users/' % SERVER_ADDRESS
-USER_ENDPOINT_PATTERN = USER_CREATE_URL + '%s'
-
-COLOURS = [colour.lower() for colour in FakeColorProvider.all_colors.keys()]
-
-PERSON = {
-    'fname': {
-        'type': 'string',
-        'minlength': 1,
-        'maxlength': 20,
-        'required': True,
-    },
-    'lname': {
-        'type': 'string',
-        'minlength': 1,
-        'maxlength': 25,
-        'required': True,
-    },
-    'username': {
-        'type': 'string',
-        'minlength': 1,
-        'maxlength': 30,
-        'required': True,
-        'unique': True,
-    },
-    'email': {
-        'type': 'string',
-        'maxlength': 50,
-        'required': True,
-        'unique': True,
-    },
-    'dob': {
-        'type': 'datetime',
-    },
-    # 'tags' is a list, and can only contain values from 'allowed'.
-    'tags': {
-        'type': 'list',
-        'allowed': COLOURS
-    },
-    # An embedded 'strongly-typed' dictionary.
-    'location': {
-        'type': 'dict',
-        'schema': {
-            'address': {'type': 'string'},
-            'city': {'type': 'string'}
-        },
-    },
-}
-
-EVE_SETTINGS = dict(
-    MONGO_HOST='localhost',
-    MONGO_PORT=27017,
-    MONGO_DBNAME='mctest',
-    DOMAIN={
-        'users': {
-            'schema': PERSON,
-            'resource_methods': ['GET', 'POST'],
-            'item_methods': ['GET', 'PATCH', 'PUT', 'DELETE'],
-            'additional_lookup': {
-                'url': 'regex("[-\w]+")',
-                'field': 'username'
-            },
-        }
-    },
-    DATE_FORMAT='%a, %d %b %Y %H:%M:%S',
-    OPLOG=True,
-)
-
-
 
 #----------------------------------------------------------------------------------------
 # Utilities
 #----------------------------------------------------------------------------------------
-fake = faker.Faker(FAKER_LOCALE)
+fake = faker.Faker(cfg.FAKER_LOCALE)
 
 
 def fake_user_tags():
@@ -117,7 +34,7 @@ def fake_user_tags():
     return [fake.color_name().lower() for _ in range(0, random.randint(0, 10))]
 
 
-def generate_fake_user_data():
+def fake_user_data():
     """
     Use the fake-factory lib to create real-looking user data matching the mongo schema.
     """
@@ -129,13 +46,28 @@ def generate_fake_user_data():
         'lname': lname,
         'email': email,
         'username': fake.user_name(),
-        'dob': fake.date_time().strftime(EVE_SETTINGS['DATE_FORMAT']),
+        'dob': fake.date_time().strftime(cfg.EVE_SETTINGS['DATE_FORMAT']),
         'tags': fake_user_tags(),
         'location': {
-            'address': fake.address(),
+            'address': fake.street_address(),
             'city': fake.city(),
         },
     }
+
+
+def fake_user_update():
+    """
+    Generate fake update for an existing user.
+    """
+    probability = cfg.UPDATE_LIKELIHOOD / 3.0
+    payload = {}
+    if random.random() < probability:
+        payload['email'] =  '%s.%s@mail.localhost' % (fake.word(), fake.word())
+    if random.random() < probability:
+        payload['tags'] = fake_user_tags()
+    if random.random() < probability:
+        payload['location'] = {'address': fake.street_address()}
+    return payload
 
 
 def on_request_error(request, exception):
@@ -148,8 +80,8 @@ def create_users(count):
     """
     def irequests():
         for _ in range(count):
-            fake_data = generate_fake_user_data()
-            yield grequests.post(USER_CREATE_URL, data=json.dumps(fake_data), headers=HEADERS)
+            fake_data = json.dumps(fake_user_data())
+            yield grequests.post(cfg.USER_CREATE_URL, data=fake_data, headers=cfg.HEADERS)
     for response in grequests.map(irequests(), exception_handler=on_request_error):
         try:
             content = response.content.decode('utf8')
@@ -166,8 +98,6 @@ def create_users(count):
             else:
                 USER_SET.add((userid, etag))
                 print("Created user '%s'" % userid)
-                print(content)
-
 
 
 def find_existing_dataset(db):
@@ -192,8 +122,11 @@ def create_indexes(db):
     db.users.create_index([('username', pymongo.ASCENDING)], unique=True)
 
 
-def random_wait():
-    gevent.sleep(random.randint(0, ACTIVITY_UPPER_DELAY))
+def random_wait(lower=0, upper=cfg.ACTIVITY_MAX_WAIT):
+    """
+    Sleep for a random number of seconds. No shorter than lower and no longer than upper.
+    """
+    gevent.sleep(random.randint(lower, upper))
 
 
 #----------------------------------------------------------------------------------------
@@ -205,10 +138,10 @@ def activity_logger(db):
     """
     while True:
         usercount = db.users.count()
-        timestamp = datetime.now().strftime(EVE_SETTINGS['DATE_FORMAT'])
+        timestamp = datetime.now().strftime(cfg.EVE_SETTINGS['DATE_FORMAT'])
         msg = 'There are %s (%s) users at %s' % (usercount, len(USER_SET), timestamp)
         print(msg)
-        gevent.sleep(ACTIVITY_STATUS_WAIT)
+        gevent.sleep(cfg.ACTIVITY_STATUS_WAIT)
 
 
 def populate():
@@ -218,9 +151,9 @@ def populate():
     Users are created via batches of async POSTs to the Eve server with 'MAX_CONCURRENCY'
     requests in each batch.
     """
-    factor, remainder = divmod(USER_INITIAL_POPULATION, MAX_CONCURRENCY)
+    factor, remainder = divmod(cfg.USER_INITIAL_POPULATION, cfg.MAX_CONCURRENCY)
     for _ in range(factor):
-        create_users(MAX_CONCURRENCY)
+        create_users(cfg.MAX_CONCURRENCY)
         gevent.sleep(1)
     if remainder:
         create_users(remainder)
@@ -231,7 +164,7 @@ def create():
     Create new users.
     """
     while True:
-        if random.random() < CREATE_LIKELIHOOD:
+        if random.random() < cfg.CREATE_LIKELIHOOD:
             create_users(1)
         random_wait()
 
@@ -240,7 +173,32 @@ def update():
     """
     Update existing users.
     """
-    pass
+    while True:
+        if USER_SET and random.random() < cfg.DELETE_LIKELIHOOD:
+            # select an existing user at random and send a PATCH request with a fake update.
+            userid, etag = random.choice(list(USER_SET))
+            url = cfg.USER_ENDPOINT_PATTERN % userid
+            headers = dict(cfg.HEADERS)
+            fake_data = fake_user_update()
+            if etag:
+                headers['If-Match'] = etag
+            data = fake_user_update()
+            # Update data is generated at random and may be empty.
+            # An empty payload is a no-op but ignore in any case.
+            if data:
+                payload = json.dumps(data)
+                request = grequests.patch(url, data=payload, headers=headers)
+                request.send()
+                if request.response.status_code >= 400:
+                    print(request.response.content)
+                else:
+                    # Need to update cached etag
+                    response = json.loads(request.response.content.decode('utf8'))
+                    newtag = response['_etag']
+                    USER_SET.remove((userid, etag))
+                    USER_SET.add((userid, newtag))
+                    print("Updated user '%s'. Payload -> %s" % (userid, payload))
+        random_wait()
 
 
 def delete():
@@ -248,12 +206,13 @@ def delete():
     Delete existing users.
     """
     while True:
-        if USER_SET and random.random() < DELETE_LIKELIHOOD:
+        if USER_SET and random.random() < cfg.DELETE_LIKELIHOOD:
+            # select an existing user at random and send a DELETE request
             userid, etag = random.choice(list(USER_SET))
-            headers = dict(HEADERS)
+            url = cfg.USER_ENDPOINT_PATTERN % userid
+            headers = dict(cfg.HEADERS)
             if etag:
                 headers['If-Match'] = etag
-            url = USER_ENDPOINT_PATTERN % userid
             request = grequests.delete(url, headers=headers)
             request.send()
             if request.response.status_code >= 400:
@@ -263,6 +222,7 @@ def delete():
                     USER_SET.remove((userid, etag))
                 except KeyError:
                     pass
+                print("Deleted user '%s'." % userid)
         random_wait()
 
 
@@ -270,20 +230,21 @@ def delete():
 # Main function
 #----------------------------------------------------------------------------------------
 def main():
-    client = pymongo.MongoClient(EVE_SETTINGS['MONGO_HOST'], EVE_SETTINGS['MONGO_PORT'])
-    db = client[EVE_SETTINGS['MONGO_DBNAME']]
+    client = pymongo.MongoClient(cfg.EVE_SETTINGS['MONGO_HOST'], cfg.EVE_SETTINGS['MONGO_PORT'])
+    db = client[cfg.EVE_SETTINGS['MONGO_DBNAME']]
 
     create_indexes(db)
     find_existing_dataset(db)
 
-    app = eve.Eve(settings=EVE_SETTINGS)
-    server = gevent.wsgi.WSGIServer(SERVER_ADDRESS, app)
+    app = eve.Eve(settings=cfg.EVE_SETTINGS)
+    server = gevent.wsgi.WSGIServer(cfg.SERVER_ADDRESS, app)
 
     threads = [
         gevent.spawn(server.serve_forever),
         gevent.spawn(activity_logger, db),
-        gevent.spawn_later(ACTIVITY_INITIAL_DELAY, create),
-        gevent.spawn_later(ACTIVITY_INITIAL_DELAY, delete)
+        gevent.spawn_later(cfg.ACTIVITY_INITIAL_DELAY, create),
+        gevent.spawn_later(cfg.ACTIVITY_INITIAL_DELAY, update),
+        gevent.spawn_later(cfg.ACTIVITY_INITIAL_DELAY, delete),
     ]
 
     if not USER_SET:
