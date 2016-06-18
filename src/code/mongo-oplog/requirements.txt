@@ -3,3 +3,4 @@ grequests==0.3.0
 fake-factory==0.5.7
 eve==0.6.4
 pymongo==3.2.2
+redis==2.10.5
