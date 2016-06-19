@@ -8,7 +8,7 @@ MAX_CONCURRENCY = 50
 
 # activity parameters
 ACTIVITY_INITIAL_DELAY = 4   # delay before create/update/delete activity begins
-ACTIVITY_MAX_WAIT = 5        # upper limit to waits between creates/updates/deletes
+ACTIVITY_MAX_WAIT = 3        # upper limit to waits between creates/updates/deletes
 ACTIVITY_STATUS_WAIT = 3     # wait between status messages
 CREATE_LIKELIHOOD = 0.4
 DELETE_LIKELIHOOD = 0.3

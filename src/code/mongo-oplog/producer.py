@@ -7,18 +7,18 @@ from bson.timestamp import Timestamp
 import redis
 import gevent
 import gevent.queue
+import gevent.fileobject
 import pymongo
-import faker
     
 import config as cfg
 
-fake = faker.Faker(cfg.FAKER_LOCALE)
 
 def random_wait():
     """
     Simulate_work.
     """
     gevent.sleep(random.random())
+
 
 def bson_ts_to_long(timestamp):
     """Convert BSON timestamp into integer.
@@ -38,103 +38,186 @@ def long_to_bson_ts(val):
     return Timestamp(seconds, increment)
 
 
-class OplogBatchProcessor:
+MONGO_CONNECTION_FAILURE = (
+    pymongo.errors.AutoReconnect,
+    pymongo.errors.OperationFailure,
+    pymongo.errors.ConfigurationError
+)
 
-    def __init__(self, db, processor, namespace=None, buffer=50, batch=10, rundir=os.getcwd()):
-        self.oplog = db.local.oplog.rs
+class OplogTail:
+
+    def __init__(self, client, processor, namespace=None, buffer=100, batch=25, workers=1, stash=None):
+        assert workers > 0, "There must be at least one worker"
+        self.oplog = client.local.oplog.rs
         self.processor = processor
         self.namespace = namespace
-        self.rundir = rundir
-        self.timestamp_file = os.path.join(
-            rundir, (namespace or 'oplog').strip('.') + '.ts'
+        self.stash = stash or os.path.join(
+            os.getcwd(), ((namespace or '') + '.oplog.tmp').lstrip('.')
         )
-        self.batch_size = batch
+        self.batchsize = batch
         self._pending = gevent.queue.Queue(buffer)
+        self._threads = [ gevent.spawn(self._buffer) ]
+        for _ in range(workers):
+            self._threads.append(gevent.spawn(self._process))
 
-    def run(self):
-        gevent.signal(signal.SIGQUIT, gevent.kill)
-        threads = [
-            gevent.spawn(self._buffer),
-            gevent.spawn(self._process),
-            gevent.spawn(self._process),
-        ]
+    def _last_processed_timestamp(self):
+        latest = self.processor.timestamp()
+        if latest:
+            return long_to_bson_ts(latest)
+
+    def _last_oplog_timestamp(self):
+        """
+        Return the timestamp of the latest entry in the oplog.
+        """
+        if not self.namespace:
+            cursor = self.oplog.find()
+        else:
+            cursor = self.oplog.find({'ns': {'$in': self.namespace}})
+
         try:
-            gevent.joinall(threads)
-        except:
-            self._shutdown()
-            raise
+            # use limit(-1) to return at most 1 item
+            ts = next(cursor.sort('$natural', pymongo.DESCENDING).limit(-1))['ts']
+        except StopIteration:
+            ts = None
 
+        return ts
 
-    def _shutdown(self):
-        print('Shutting down')
+    def _get_oplog_cursor(self):
+        """
+        Get a cursor to the oplog.
+
+        Filter by namespace, if one is given.
+        
+        If the processor returns a value for returns a cursor to the entire oplog.
+        """
+        query = {}
+
+        if self.namespace:
+            query['ns'] = {'$in': self.namespace}
+
+        timestamp = self._last_processed_timestamp()
+
+        if timestamp:
+            query['ts'] = {'$gte': timestamp}
+
+        cursor = self.oplog.find(query, cursor_type=pymongo.CursorType.TAILABLE_AWAIT)
+
+        if timestamp:
+            # Applying 8 as the mask to the cursor enables OplogReplay
+            cursor.add_option(8)
+
+        try:
+            cursor.clone().limit(-1)[0]
+        except IndexError:
+            cursor = None
+        return cursor
 
     def _buffer(self):
         while True:
             while not self._pending.empty():
                 print('Waiting for current buffer to be processed before reconnecting to mongo')
                 gevent.sleep(2)
-            while True:
-                random_wait()
-                word = fake.word()
-                try:
-                    print("Putting '%s'" % word)
-                    self._pending.put(word, block=False)
-                except gevent.queue.Full:
-                    print("Buffer is full. Waiting for tasks to complete.")
-                    gevent.sleep(2)
+            cursor = self._get_oplog_cursor()
+            if not cursor:
+                print("No oplog activity. Waiting...")
+                gevent.sleep(5)
+                continue
+            try:
+                while cursor.alive:
+                    for entry in cursor:
+
+                        # Don't replicate entries resulting from chunk moves
+                        if entry.get("fromMigrate"):
+                            continue
+
+                        # Sync the current oplog operation
+                        operation = entry['op']
+                        ns = entry['ns']
+
+                        if '.' not in ns:
+                            continue
+                        coll = ns.split('.', 1)[1]
+
+                        # Ignore system collections
+                        if coll.startswith("system."):
+                            continue
+
+                        # Ignore GridFS chunks
+                        if coll.endswith('.chunks'):
+                            continue
+
+                        timestamp = bson_ts_to_long(entry['ts'])
+                        print("Buffering oplog entry ts='%s'" % entry['ts'])
+                        self._pending.put_nowait((timestamp, entry))
+                        gevent.sleep(0)
+                    print('Mongodb cursor is alive but has no data')
+                    gevent.sleep(3)
+            except MONGO_CONNECTION_FAILURE as err:
+                print("Cursor closed due to an exception - %s" % err)
+            except gevent.queue.Full:
+                print('Buffer is full. Backing off.')
+            print('Reconnecting')
+            del cursor
+            gevent.sleep(2)
 
 
     def _process(self):
-        rng = range(self.batch_size)
+        rng = range(self.batchsize)
         while True:
             payload = []
             try:
                 for idx in rng:
-                    word = self._pending.get(block=True, timeout=1.5)
-                    print("Got '%s'" % word)
-                    payload.append(word)
+                    ts, entry = self._pending.get(block=True, timeout=1)
+                    gevent.sleep(0)
+                    print("Got entry with timestamp '%s'" % ts)
+                    payload.append((ts, entry))
             except gevent.queue.Empty:
                 pass
             if payload:
-                print('batching %s' % payload)
-                random_wait()
+                print('Processing %d items' % len(payload))
+                self.processor.process(payload)
+                gevent.sleep(0)
             else:
-                print("No new data. Processor thread '%s' is sleeping for 1s" % id(gevent.getcurrent()))
-                gevent.sleep(1)
+                print("Processor thread '%s' is waiting..." % id(gevent.getcurrent()))
+                gevent.sleep(2)
             
+    def shutdown(self):
+        print('Shutting down')
 
-    def get_last_timestamp(self):
-        value = None
-        if os.path.exists(self.timestamp_file):
-            with open(self.timestamp_file) as fileobj:
-                value = long_to_bson_ts(int(fileobj.read().strip()))
-        return value
+    def join(self):
+        gevent.joinall(self._threads)
 
-    def set_last_timestamp(self, value):
-        with open(self.timestamp_file, 'w') as fileobj:
-            fileobj.write(str(bson_ts_to_long(value)))
+class FileOutProcessor(gevent.fileobject.FileObjectThread):
 
-    def get_current_timestamp(self):
-        if self.namespace:
-            query = self.oplog.find({'ns': {'$in': self.namespace}})
-        else:
-            query = self.oplog.find()
-        # use limit(-1) to return at most 1 item
-        query = query.sort('$natural', pymongo.DESCENDING).limit(-1)
+    def __init__(self, filepath):
+        super().__init__(open(filepath, 'a'))
+        self._timestamp = None
 
-        if query.count(with_limit_and_skip=True) == 0:
-            return None
+    def timestamp(self):
+        return self._timestamp
 
-        return query[0]['ts']
+    def process(self, items):
+        for ts, doc in items:
+            self.io.write(str(doc) + '\n')
+            self._timestamp = ts
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, objtype, value, traceback):
+        self.close()
 
 
 def main():
     dbname = cfg.EVE_SETTINGS['MONGO_DBNAME']
     client = pymongo.MongoClient(cfg.EVE_SETTINGS['MONGO_HOST'], cfg.EVE_SETTINGS['MONGO_PORT'])
-    db = client[dbname]
-    queue = redis.StrictRedis()
-    oplog_processor = OplogBatchProcessor(db, queue)
-    oplog_processor.run()
+    gevent.signal(signal.SIGQUIT, gevent.kill)
+    with FileOutProcessor('oplog.log') as fileout:
+        tail = OplogTail(client, fileout)
+        try:
+            tail.join()
+        except KeyboardInterrupt:
+            print('Program Exit.')
 
 
 if __name__ == '__main__':
