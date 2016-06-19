@@ -8,6 +8,7 @@ import redis
 import gevent
 import gevent.queue
 import gevent.fileobject
+import gevent.monkey
 import pymongo
     
 import config as cfg
@@ -46,7 +47,7 @@ MONGO_CONNECTION_FAILURE = (
 
 class OplogTail:
 
-    def __init__(self, client, processor, namespace=None, buffer=100, batch=25, workers=1, stash=None):
+    def __init__(self, client, processor, namespace=None, buffer=200, batch=50, workers=1, lazy=5, stash=None):
         assert workers > 0, "There must be at least one worker"
         self.oplog = client.local.oplog.rs
         self.processor = processor
@@ -55,6 +56,7 @@ class OplogTail:
             os.getcwd(), ((namespace or '') + '.oplog.tmp').lstrip('.')
         )
         self.batchsize = batch
+        self.lazy = lazy
         self._pending = gevent.queue.Queue(buffer)
         self._threads = [ gevent.spawn(self._buffer) ]
         for _ in range(workers):
@@ -108,18 +110,19 @@ class OplogTail:
 
         try:
             cursor.clone().limit(-1)[0]
-        except IndexError:
+        except (IndexError, pymongo.errors.AutoReconnect):
             cursor = None
         return cursor
 
     def _buffer(self):
         while True:
             while not self._pending.empty():
-                print('Waiting for current buffer to be processed before reconnecting to mongo')
-                gevent.sleep(2)
+                print('BUFFER:    Waiting for current buffer to be processed before reconnecting to mongo')
+                gevent.sleep(self.lazy)
+            print("BUFFER:    Getting oplog cursor.")
             cursor = self._get_oplog_cursor()
             if not cursor:
-                print("No oplog activity. Waiting...")
+                print("BUFFER:    Either could not connect to database or local.oplog.rs is empty. Retrying in 5s...")
                 gevent.sleep(5)
                 continue
             try:
@@ -147,19 +150,17 @@ class OplogTail:
                             continue
 
                         timestamp = bson_ts_to_long(entry['ts'])
-                        print("Buffering oplog entry ts='%s'" % entry['ts'])
+                        print("BUFFER:    Buffering oplog entry ts='%s'" % entry['ts'])
                         self._pending.put_nowait((timestamp, entry))
                         gevent.sleep(0)
-                    print('Mongodb cursor is alive but has no data')
+                    print('BUFFER:    Mongodb cursor is alive but has no data')
                     gevent.sleep(3)
             except MONGO_CONNECTION_FAILURE as err:
-                print("Cursor closed due to an exception - %s" % err)
+                print("BUFFER:    Cursor closed due to an exception - %s" % err)
             except gevent.queue.Full:
-                print('Buffer is full. Backing off.')
-            print('Reconnecting')
+                print('BUFFER:    Buffer is full. Backing off.')
             del cursor
             gevent.sleep(2)
-
 
     def _process(self):
         rng = range(self.batchsize)
@@ -167,19 +168,17 @@ class OplogTail:
             payload = []
             try:
                 for idx in rng:
-                    ts, entry = self._pending.get(block=True, timeout=1)
+                    ts, entry = self._pending.get(block=True, timeout=self.lazy)
                     gevent.sleep(0)
-                    print("Got entry with timestamp '%s'" % ts)
                     payload.append((ts, entry))
             except gevent.queue.Empty:
                 pass
             if payload:
-                print('Processing %d items' % len(payload))
+                print('PROCESSOR: Processing %d items' % len(payload))
                 self.processor.process(payload)
-                gevent.sleep(0)
             else:
-                print("Processor thread '%s' is waiting..." % id(gevent.getcurrent()))
-                gevent.sleep(2)
+                print("PROCESSOR: Worker thread '%s' is waiting for data..." % id(gevent.getcurrent()))
+            gevent.sleep(self.lazy)
             
     def shutdown(self):
         print('Shutting down')
@@ -221,6 +220,7 @@ def main():
 
 
 if __name__ == '__main__':
+    gevent.monkey.patch_all()
     try:
         main()
     except KeyboardInterrupt:
