@@ -14,13 +14,6 @@ import pymongo
 import config as cfg
 
 
-def random_wait():
-    """
-    Simulate_work.
-    """
-    gevent.sleep(random.random())
-
-
 def bson_ts_to_long(timestamp):
     """Convert BSON timestamp into integer.
 
@@ -47,7 +40,7 @@ MONGO_CONNECTION_FAILURE = (
 
 class OplogTail:
 
-    def __init__(self, client, processor, namespace=None, buffer=200, batch=50, workers=1, lazy=5, stash=None):
+    def __init__(self, client, processor, namespace=None, buffer=200, batch=50, workers=1, lazy=6, stash=None):
         assert workers > 0, "There must be at least one worker"
         self.oplog = client.local.oplog.rs
         self.processor = processor
@@ -212,11 +205,7 @@ def main():
     client = pymongo.MongoClient(cfg.EVE_SETTINGS['MONGO_HOST'], cfg.EVE_SETTINGS['MONGO_PORT'])
     gevent.signal(signal.SIGQUIT, gevent.kill)
     with FileOutProcessor('oplog.log') as fileout:
-        tail = OplogTail(client, fileout)
-        try:
-            tail.join()
-        except KeyboardInterrupt:
-            print('Program Exit.')
+        OplogTail(client, fileout).join()
 
 
 if __name__ == '__main__':
@@ -224,5 +213,5 @@ if __name__ == '__main__':
     try:
         main()
     except KeyboardInterrupt:
-        pass
+        print('Program Exit.')
 
