@@ -9,11 +9,11 @@ Johnson-Trotter Algorithm (Python)
 
 .. container:: callout primary
 
-    When I was learning Python, one of the first things that I wrote was
-    an implementation of the Johnson-Trotter algorithm. It was based on some Pascal
-    code from the book `Programming for Mathematicians`_ and written for `Python 2.5.1`_
-    (2007!) I've made a few improvements and it will run on Python 2 and 3, but
-    the basic approach is the same.
+    This is some of the first python code I wrote, using `Python 2.5`_ and Idle
+    on Windows XP.  It's an implementation of the Johnson-Trotter permutations
+    algorithm based on Pascal code from the book `Programming for Mathematicians`_.
+    I've made some improvements and adapted it to run on Python 2 and 3, but the
+    basic approach is the same.
 
 Name rings a bell...
 ====================
@@ -225,7 +225,7 @@ rather than the original:
 
 
 .. _programming for mathematicians: https://www.amazon.co.uk/Programming-Mathematicians-Raymond-Translated-January/dp/B00MMQ77L0/ref=sr_1_3
-.. _python 2.5.1: https://www.python.org/download/releases/2.5.1/
+.. _python 2.5: https://www.python.org/download/releases/2.5.1/
 .. _change ringers: https://en.wikipedia.org/wiki/Change_ringing
 .. _steinhaus-johnson-trotter algorithm: https://en.wikipedia.org/wiki/Steinhaus%E2%80%93Johnson%E2%80%93Trotter_algorithm
 .. _itertools.permutations: https://docs.python.org/3/library/itertools.html#itertools.permutations

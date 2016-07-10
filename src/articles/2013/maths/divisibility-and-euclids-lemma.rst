@@ -8,7 +8,10 @@ Divisibility and Euclid's Lemma
 :tags: Number Theory
 :attribution: Cohn
 
-**Attribution:** P. M. Cohn
+.. container:: callout primary
+
+    Nothing original here, attribution is to `P. M. Cohn`_. I just like the simple proof at the end.
+
 
 Basic Definitions
 -----------------
@@ -144,4 +147,5 @@ and it therefore follows by the already proven case \\(n=2\\) that
 \\(p \\nmid a_1a_2 \\cdots a_n\\). \\(\\Box\\)
 
 .. _division algorithm: {filename}/articles/2013/maths/euclidean-division.rst
+.. _P. M. Cohn: https://en.wikipedia.org/wiki/Paul_Cohn
 
