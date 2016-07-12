@@ -59,7 +59,7 @@ PLUGIN_PATHS = [
     os.path.join(BASEDIR, 'plugins'),
 ]
 PLUGINS = [
-    'youtube', 'sitemap', 'jsfiddle', 'render_math',
+    'youtube', 'sitemap', 'jsfiddle', 'render_math', 'gist',
 ]
 
 SITEMAP = {

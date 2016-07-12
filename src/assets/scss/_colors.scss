@@ -54,6 +54,8 @@ $brand-bg: #8B1A1A;
 $brand-bg: #CD2626;
 $brand-bg: #76978C;
 $brand-bg: $body-text-fg;
-$brand-bg-lighter: lighten($body-text-fg, 20%);
+$brand-bg-light: lighten($brand-bg, 10%);
+$brand-bg-dark: darken($brand-bg, 10%);
+$brand-bg-lighter: lighten($brand-bg, 20%);
 
 
