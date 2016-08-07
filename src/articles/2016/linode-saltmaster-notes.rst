@@ -1,16 +1,16 @@
 
-Set up a SaltStack master on Linode
-###################################
+Install a SaltStack master on Linode
+####################################
 
-:date: 2016-07-11 08:00
+:date: 2016-08-07 08:00
 :category: Ops
 :author: averagehuman
-:tags: Automation
+:tags: Ansible
 
 
 .. container:: callout primary
 
-    Notes on creating a salt master node using a linode plugin for vagrant.
+    Notes on creating a salt master node on linode using a vagrant plugin.
 
 
 How to provision a provisioner?
@@ -18,12 +18,14 @@ How to provision a provisioner?
 
 `Saltstack`_ is an automation and configuration management tool with a master/slave
 architecture - a single salt master creates, configures and orchestrates many salt
-"minions". But how do you automate the creation and configuration of the master itself?
-Well, there are probably many solutions, not least 'Follow the instructions on the wiki',
-but for a vps option here are some notes on setting up a `Linode`_ box using a
-`vagrant-linode`_ plugin and then provisioning with `ansible`_.
+"minions". To create the saltmaster there is a multiplatform `salt-bootstrap script`_
 
-The Linode/Vagrant set up is based on `this document`_.
+The following are some notes on setting up a `Linode`_
+box as a saltmaster using a `vagrant-linode`_ plugin together with `ansible`_ as the
+provisioner.
+
+There are similar plugins for AWS, Digital Ocean, Vultr etc. 
+
 
 Prerequisites
 -------------
@@ -57,4 +59,5 @@ You also need to install the `vagrant-linode`_ plugin:
 .. _linode api: https://www.linode.com/api
 .. _ansible: https://www.ansible.com/
 .. _this document: https://www.linode.com/docs/applications/configuration-management/vagrant-linode-environments
+.. _use the salt-bootstrap script: https://github.com/saltstack/salt-bootstrap
 

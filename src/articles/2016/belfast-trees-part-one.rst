@@ -1,10 +1,11 @@
 
-Belfast Trees Database
-######################
+Belfast Trees Database (Part One)
+#################################
 
 :date: 2016-05-30 08:00
-:category: Open Data
+:category: Postgres
 :author: averagehuman
+:tags: opendatani
 
 
 Being but men, we catalogue trees.
@@ -43,7 +44,11 @@ get_belfast_trees_csv.py
 [[ gist averagehuman:baadeb24e717231b2acdd1d86b861769 ]]
 
 
+In the `next post`_ the csv file is set up as a `foreign data wrapper`_ so that it can be
+more easily queried.
+
 .. _being but men: http://www.poemhunter.com/best-poems/dylan-thomas/being-but-men/
 .. _opendatani: https://www.opendatani.gov.uk/
 .. _foreign data wrapper: https://wiki.postgresql.org/wiki/Foreign_data_wrappers
+.. _next post: {filename}belfast-trees-part-two.rst
 

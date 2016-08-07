@@ -11,9 +11,9 @@ Johnson-Trotter Algorithm (Python)
 
     This is some of the first python code I wrote, using `Python 2.5`_ and Idle
     on Windows XP.  It's an implementation of the Johnson-Trotter permutations
-    algorithm based on Pascal code from the book `Programming for Mathematicians`_.
-    I've made some improvements and adapted it to run on Python 2 and 3, but the
-    basic approach is the same.
+    algorithm based on some Pascal code from the book `Programming for Mathematicians`_.
+    I've made some improvements to my original program and adapted it to run on
+    Python 2 and 3, but the basic approach is the same.
 
 Name rings a bell...
 ====================

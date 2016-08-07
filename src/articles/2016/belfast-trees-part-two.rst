@@ -1,11 +1,11 @@
 
-Postgres CSV Foreign Data Wrapper
+Belfast Trees Database (Part Two)
 #################################
 
 :date: 2016-05-31 08:00
 :category: Postgres
-:author: gmflanagan
-:draft: true
+:author: averagehuman
+:tags: opendatani
 
 
 A Foreign Data Wrapper (FDW) in `postgres`_ is a way of making an external data
@@ -20,8 +20,8 @@ Some third-party Foreign Data Wrappers include `mongo_fdw`_ for mongodb, `pg-es-
 for Elasticsearch and `www_fdw`_ for accessing JSON and XML webservices. These
 require separate compilation.
 
-Belfast Trees Example
-=====================
+Trees CSV as a Foreign Data Wrapper
+===================================
 
 As an example of accessing a CSV file as an external data source, we can use the
 Belfast Trees catalogue from `a previous post`_.
@@ -143,6 +143,8 @@ How does condition relate to age?
 So there are more Young trees in poor condition than Mature or Fully Mature trees in poor
 condition.
 
+And so on.
+
 .. _postgres: https://www.postgresql.org/
 .. _postgres-fdw: https://www.postgresql.org/docs/9.3/static/postgres-fdw.html
 .. _file-fdw: https://www.postgresql.org/docs/9.3/static/file-fdw.html
@@ -151,4 +153,5 @@ condition.
 .. _www_fdw: https://github.com/cyga/www_fdw
 .. _pgxn.org: http://pgxn.org/tag/fdw/
 .. _opendatani: https://www.opendatani.gov.uk/
-.. _a previous post: {filename}opendata-belfast-trees.rst
+.. _a previous post: {filename}belfast-trees-part-one.rst
+
