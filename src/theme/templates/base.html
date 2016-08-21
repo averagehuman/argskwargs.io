@@ -13,40 +13,61 @@
 
 <body>
 
-<header class="site-header">
-    <div class="row">
-        <div class="small-4 columns">
-            <h1 class="brand"><a href="/">*args<span class="brand-secondary"> **kwargs</span></a></h1>
-        </div>
-        <div class="small-8 columns text-right">
-            <div class="secondary button-group right">
-                <a class="button" href="https://github.com/gmflanagan">Github</a>
-                <a class="button" href="https://twitter.com/gmflanagan">Twitter</a>
+<div class="off-canvas-wrapper">
+    <div class="off-canvas-wrapper-inner" data-off-canvas-wrapper>
+        <div class="off-canvas position-left" id="off-canvas-panel" data-position="left" data-off-canvas>
+            <button class="close-button" aria-label="Close menu" type="button" data-close>
+                <span aria-hidden="true">&times;</span>
+            </button>
+
+            <ul class="vertical menu site-menu">
+                <li><a class="button" href="https://github.com/averagehuman">Github</a></li>
+                <li><a class="button" href="/about">About</a></li>
+            </ul>
+
+            <div class="site-info">
+                <p>
+                    Powered by <a href="http://blog.getpelican.com/">Pelican</a> and <a href="http://foundation.zurb.com/sites/docs/">ZURB Foundation</a>.
+                </p>
             </div>
         </div>
-    </div>
-</header>
+        <div class="off-canvas-content" data-off-canvas-content>
+            <header class="site-header">
+                <div class="row">
+                    <div class="small-4 columns">
+                        <h1 class="brand"><a href="/">*args<span class="brand-secondary"> **kwargs</span></a></h1>
+                    </div>
+                    <div class="small-8 columns text-right">
+                        <div class="secondary button-group right site-menu">
+                            <a class="button" href="/"><i class="fa fa-home"></i></a>
+                            <a class="button" data-toggle="off-canvas-panel"><i class="fa fa-bars"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </header>
 
-<!-- Main Page Content and Sidebar -->
-<div class="site-content">
-    {% block document %}
-    <div class="row column">
-        {% block preamble %}
-        {% endblock %}
-        {% block content %}{% endblock %}
-    </div>
-    {% endblock %}
-</div>
-<!-- End Main -->
+            <!-- Main Page Content and Sidebar -->
+            <div class="site-content">
+                {% block document %}
+                <div class="row column">
+                    {% block preamble %}
+                    {% endblock %}
+                    {% block content %}{% endblock %}
+                </div>
+                {% endblock %}
+            </div>
+            <!-- End Main -->
 
+            <!-- Footer -->
+            <footer class="footer">
+                <div class="row column">
+                    <p>&copy; Gerard Flanagan 2016. All Rights Reserved.</p>
+                </div>
+            </footer>
 
-<!-- Footer -->
-
-<footer class="footer">
-    <div class="row column">
-        <p>&copy; Gerard Flanagan 2016. All Rights Reserved.</p>
-    </div>
-</footer>
+        </div> <!-- off-canvas-content -->
+    </div> <!-- inner-wrap -->
+</div> <!-- off-canvas-wrap -->
 
 <script type="text/javascript" src="{{SITEURL}}/assets/js/app.js"></script>
 </body>

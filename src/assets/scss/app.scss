@@ -6,6 +6,7 @@
 
 @include foundation-global-styles;
 @include foundation-grid;
+@include foundation-off-canvas;
 @include foundation-typography;
 @include foundation-button;
 @include foundation-forms;
@@ -67,15 +68,33 @@ blockquote, blockquote p {
 }
 .site-header {
     width: 100%;
-    margin-top: 12px;
+    margin-top: 0;
     margin-bottom: 0.5em;
     font-family: 'Roboto', sans-serif;
 }
-.site-header a.button, .site-header a.button:visited {
+.site-menu a.button, .site-menu a.button:visited {
     background: $brand-bg-light !important;
 }
-.site-header a.button:hover, .site-header a.button:focus {
+.site-menu a.button:hover, .site-menu a.button:focus {
     background: $brand-bg-dark !important;
+}
+#off-canvas-panel {
+    height: 100%;
+    background: $brand-bg-light !important;
+}
+#off-canvas-panel .site-menu {
+    margin: 2.5em 0;
+}
+.site-info {
+    font-size: 11px;
+    color: cadetblue;
+    padding: 5px;
+}
+.site-info a, .site-info a:visited {
+    color: skyblue;
+}
+.site-info a:hover {
+    text-decoration: underline;
 }
 
 .site-header .brand {
@@ -89,33 +108,6 @@ blockquote, blockquote p {
     color: lighten($brand-bg, 10%);
     font-style: italic;
 }
-.site-menu {
-    border: solid 1px $brand-bg;
-    border-left: 0;
-    display: inline-block;
-}
-.site-menu > li {
-    border-left: solid 1px $brand-bg;
-    background: #efefef;
-}
-.site-menu > li > a.brand, .site-menu > li > a.brand:visited {
-    background: lighten($brand-bg, 10%) !important;
-}
-.site-menu > li > a.brand:hover, .site-menu > li > a.brand:focus {
-    background: darken($brand-bg, 10%) !important;
-}
-.site-menu > li > a.icon, .site-menu > li > a.icon:visited {
-    color: $brand-bg;
-    display: inline-block;
-    width: 80px;
-    text-align: center;
-    padding: 0;
-    font-weight: normal;
-}
-.site-menu > li > a.icon:hover, .site-menu > li > a.icon:focus {
-    text-decoration: underline;
-}
-
 .preamble {
     margin-bottom: 1.1rem;
 }
