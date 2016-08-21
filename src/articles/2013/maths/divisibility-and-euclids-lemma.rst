@@ -10,7 +10,7 @@ Divisibility and Euclid's Lemma
 
 .. container:: callout primary
 
-    Nothing original here, attribution is to `P. M. Cohn`_. I just like the simple proof at the end.
+    Nothing original here, attribution is to `P. M. Cohn`_.
 
 
 Basic Definitions

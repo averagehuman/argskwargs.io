@@ -44,7 +44,7 @@ and so
 
 Hence the number \\(r\\) given by \\(r = a - bq\\) satisfies \\((1)\\).
 
-But rather than invoking raional numbers, the result can also be proved via
+But rather than invoking rational numbers, the result can also be proved via
 the `Principle of Least Element`_. Let \\(S\\) be the
 set of all non-negative integers of the form \\(a - bn\\). The set \\(S\\) is not empty
 - for example, take \\(n = -a^2\\), then
