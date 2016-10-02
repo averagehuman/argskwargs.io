@@ -33,14 +33,14 @@ PAGE_URL = '{slug}/'
 PAGE_SAVE_AS = '{slug}/index.html'
 CATEGORY_URL = 'blog/{slug}/'
 CATEGORY_SAVE_AS = 'blog/{slug}/index.html'
-CATEGORIES_SAVE_AS =  'blog/index.html'
+CATEGORIES_SAVE_AS = 'blog/index.html'
 TAG_URL = 'blog/list/tag/{slug}/'
 TAG_SAVE_AS = 'blog/list/tag/{slug}/index.html'
-TAGS_SAVE_AS =  'blog/list/tag/index.html'
+TAGS_SAVE_AS = 'blog/list/tag/index.html'
 AUTHOR_URL = 'blog/list/author/{slug}/'
 AUTHOR_SAVE_AS = 'blog/list/author/{slug}/index.html'
-AUTHORS_SAVE_AS =  'blog/list/author/index.html'
-ARCHIVES_SAVE_AS =  'blog/list/archive/index.html'
+AUTHORS_SAVE_AS = 'blog/list/author/index.html'
+ARCHIVES_SAVE_AS = 'blog/list/archive/index.html'
 
 THEME = os.path.join(PATH, 'theme')
 THEME_STATIC_DIR = 'assets'
@@ -59,7 +59,7 @@ PLUGIN_PATHS = [
     os.path.join(BASEDIR, 'plugins'),
 ]
 PLUGINS = [
-    'youtube', 'sitemap', 'jsfiddle', 'render_math', 'gist',
+    'youtube', 'sitemap', 'jsfiddle', 'render_math', 'gist', 'neighbors'
 ]
 
 SITEMAP = {

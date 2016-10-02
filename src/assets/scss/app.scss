@@ -85,6 +85,12 @@ blockquote, blockquote p {
 #off-canvas-panel .site-menu {
     margin: 2.5em 0;
 }
+#off-canvas-panel .close-button, #off-canvas-panel .close-button:visited {
+    color: skyblue;
+}
+#off-canvas-panel .close-button:hover {
+    color: black;
+}
 .site-info {
     font-size: 11px;
     color: cadetblue;

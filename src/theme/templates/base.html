@@ -15,14 +15,15 @@
 
 <div class="off-canvas-wrapper">
     <div class="off-canvas-wrapper-inner" data-off-canvas-wrapper>
-        <div class="off-canvas position-left" id="off-canvas-panel" data-position="left" data-off-canvas>
+        <div class="off-canvas position-right" id="off-canvas-panel" data-position="right" data-off-canvas>
             <button class="close-button" aria-label="Close menu" type="button" data-close>
                 <span aria-hidden="true">&times;</span>
             </button>
 
             <ul class="vertical menu site-menu">
-                <li><a class="button" href="https://github.com/averagehuman">Github</a></li>
+                <li><a class="button" href="/about">Home</a></li>
                 <li><a class="button" href="/about">About</a></li>
+                <li><a class="button" href="https://github.com/averagehuman">Github</a></li>
             </ul>
 
             <div class="site-info">
@@ -34,12 +35,13 @@
         <div class="off-canvas-content" data-off-canvas-content>
             <header class="site-header">
                 <div class="row">
-                    <div class="small-4 columns">
-                        <h1 class="brand"><a href="/">*args<span class="brand-secondary"> **kwargs</span></a></h1>
+                    <div class="small-6 columns">
+                        <h1 class="brand text-left"><a href="/">*args<span class="brand-secondary"> **kwargs</span></a></h1>
                     </div>
-                    <div class="small-8 columns text-right">
-                        <div class="secondary button-group right site-menu">
-                            <a class="button" href="/"><i class="fa fa-home"></i></a>
+                    <div class="small-6 columns text-right">
+                        <div class="secondary button-group site-menu right">
+                            {% block menu_buttons %}{% endblock %}
+                            <a class="button hide-for-small-only" href="/"><i class="fa fa-home"></i></a>
                             <a class="button" data-toggle="off-canvas-panel"><i class="fa fa-bars"></i></a>
                         </div>
                     </div>

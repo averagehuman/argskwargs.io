@@ -1,5 +1,16 @@
 {% extends "base.html" %}
+
 {% block title %}{{ article.title|striptags }}{% endblock %}
+
+{% block menu_buttons %}
+    {% if article.prev_article %}
+        <a class="button" href="{{ SITEURL }}/{{article.prev_article.url}}" title="{{article.prev_article.title|striptags}}"><i class="fa fa-arrow-left"></i></a>
+    {% endif %}
+    {% if article.next_article %}
+        <a class="button" href="{{ SITEURL }}/{{article.next_article.url}}" title="{{article.next_article.title|striptags}}"><i class="fa fa-arrow-right"></i></a>
+    {% endif %}
+{% endblock %}
+
 {% block content %}
 <article>
     <header class="article-header">
