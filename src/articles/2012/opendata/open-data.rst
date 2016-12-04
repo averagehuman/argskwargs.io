@@ -124,6 +124,6 @@ to promote cultural change in this area. Open data should ultimately be the
 .. _belfast city council: https://data.gov.uk/publisher/belfast-city-council
 .. _psni: https://data.gov.uk/publisher/police-service-of-northern-ireland
 .. _northern ireland spatial data infrastructure: https://data.gov.uk/publisher/northern-ireland-spatial-data-infrastructure
-.. _a list of bus stops with coordinates: https://data.gov.uk/dataset/translink-bus-stop-list
+.. _a list of bus stops with coordinates: https://data.gov.uk/dataset/translink-bus-stop-list1
 .. _open data principles: https://okfn.org/opendata/
 

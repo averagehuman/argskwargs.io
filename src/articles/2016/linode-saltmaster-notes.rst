@@ -19,25 +19,13 @@ How to provision a provisioner?
 `Saltstack`_ is an automation and configuration management tool with a master/slave
 architecture - a single salt master creates, configures and orchestrates many salt
 "minions". But how do you bootstrap this setup, ie. how do you automate the deployment
-of the saltmaster itself? Since salt is a python package the installation process is a
-familiar one:
+of the saltmaster itself?  The following are some notes on setting up a `Linode`_ box
+as a saltmaster via `vagrant`_ and a `vagrant-linode`_ plugin. `ansible`_ is used to
+orchestrate the actual provisioning of the remote environment.
 
-+ create and activate a virtualenv
-+ install requirements
-+ run ``python setup.py install``
-  
-And it turns out there is a `salt-bootstrap`_ script which will encapsulate this process.
-It's a multiplatform shell script that will detect the operating system, download and install
-the salt package and configure the system as either a master or minion (or both).
-
-The following are some notes on setting up a `Linode`_ box as a saltmaster via `vagrant`_
-and a `vagrant-linode`_ plugin. I'm using `ansible`_ to orchestrate the actual
-provisioning of the remote environment.
-
-Why vagrant? Obviously it's not essential here, but it's a familiar interface and a
-way of transparently handling the necessary calls to the linode api. And there
-are similar plugins for AWS, Digital Ocean, Vultr etc. so it wouldn't take much
-to move to other vps providers.
+Why vagrant? Well, it's a familiar interface and a way of transparently handling the
+necessary calls to the linode api. And there are similar plugins for AWS, Digital Ocean,
+Vultr etc. so it wouldn't take much to move to other vps providers.
 
 
 Prerequisites
@@ -180,9 +168,13 @@ vagrant again:
 .. code-block:: bash
 
     vagrant provision --provision-with ansible
+ 
+Salt itself is a python package with a standard ``setup.py`` and there is a multiplatform
+`salt-bootstrap`_ shell script which takes care of creating a virtualenv, installing requirements,
+downloading and installing the salt package and configuring the system as either a master or
+minion (or both).
 
-`See github`_ for an ansible setup that installs both `salt`_ and `jenkins`_. A successful
-run gives the following output:
+`See github`_ for a complete ansible setup that installs both `salt`_ and `jenkins`_.
 
 
 .. code-block:: bash

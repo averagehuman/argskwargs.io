@@ -24,7 +24,8 @@ BASEDIR = os.path.dirname(os.path.abspath(__file__))
 PATH = BASEDIR
 PAGE_PATHS = ['pages']
 ARTICLE_PATHS = ['articles']
-ARTICLE_EXCLUDES = ['img', 'latest']
+ARTICLE_EXCLUDES = ['img', 'latest', 'files']
+STATIC_PATHS = ['downloads']
 
 USE_FOLDER_AS_CATEGORY = True
 ARTICLE_URL = 'blog/{category}/{slug}/'
