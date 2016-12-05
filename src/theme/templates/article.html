@@ -24,7 +24,7 @@
     </div>
 
     <section class="article-footer">
-    <div class="row column article-meta subheader">
+    <div class="row column article-meta">
     {% if article.category %}
     <small><i class="fa fa-folder-open-o"></i> <a href="{{ SITEURL }}/{{article.category.url}}">{{ article.category }}</a></small>
     {% endif %}
@@ -33,6 +33,18 @@
         <small><i class="fa fa-tag"></i> <a class="" href="{{ SITEURL }}/{{ tag.url }}">{{ tag }} </a> </small>
         {% endfor %}
     {% endif %}
+    </div>
+    <div class="row nextprev">
+        <div class="small-6 columns">
+            {% if article.prev_article %}
+                <a href="{{ SITEURL }}/{{article.prev_article.url}}" title="{{article.prev_article.title|striptags}}"><i class="fa fa-arrow-left"></i> {{article.prev_article.title|striptags}}</a>
+            {% endif %}
+        </div>
+        <div class="small-6 columns" style="text-align:right">
+            {% if article.next_article %}
+                <a href="{{ SITEURL }}/{{article.next_article.url}}" title="{{article.next_article.title|striptags}}">{{article.next_article.title|striptags}} <i class="fa fa-arrow-right"></i></a>
+            {% endif %}
+        </div>
     </div>
     </section>
 

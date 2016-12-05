@@ -252,19 +252,25 @@ blockquote.bigstyle cite {
     font-size: 90%;
 }
 .article-content {
-    margin-bottom: 3.1rem;
+    margin-bottom: 26px;
 }
 .article-footer {
-    border-top: solid 1px #dedede;
 }
 .article-title {
     margin-bottom: 0;
 }
 .article-meta {
+    border-top: solid 1px #dedede;
+    border-bottom: solid 1px #dedede;
 }
 .article-meta a, .article-meta span {
     margin-right: 0.5rem;
 }
+.article-footer > .nextprev {
+    margin-top: 30px;
+}
+    
+    
 .article-content img {
     margin-bottom: 1em;
 }
