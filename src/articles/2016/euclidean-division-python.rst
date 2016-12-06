@@ -90,15 +90,9 @@ Here is some code to solve the \\(n = 2\\) case:
 Simple Euclidean Algorithm
 ==========================
 
-Another problem with the standard algorithm from a didactic point of view is that
-it isn't immediately clear how it relates back to the theory of Euclidean division.
-Using the modulus operator is a computational convenience but it makes the process
-slightly opaque. Below is a naive implementation that uses repeated subtraction
-as Euclid's original method describes. (Not that I'm claiming to have read Euclid!).
-
-Once you see that process outlined, then it may be more clear that the only point of
-the repeated subtraction is to determine the remainder, and that you can find that
-in a single step by using the modulus.
+To try to describe the step by step process more clearly, here's a naive implementation
+of the euclidean algorithm that uses repeated subtraction to find the remainder rather
+than directly applying the 'modulus' operator.
 
 .. code-block:: python
 
@@ -118,7 +112,7 @@ in a single step by using the modulus.
 
             a = b.q + r
 
-        and this is done by repeatedly subtracting 'b'.
+        and this is done by repeatedly subtracting 'b' until 'a < b'.
 
         This is an iterator which yields 'b' each time it is subtracted from the
         associated 'a', up until the point that 'a' becomes less than 'b'. Then

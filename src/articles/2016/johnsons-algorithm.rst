@@ -9,20 +9,20 @@ Johnson-Trotter Algorithm (Python)
 
 .. container:: callout primary
 
-    This is some of the first python code I wrote, using `Python 2.5`_ and Idle
-    on Windows XP.  It's an implementation of the Johnson-Trotter permutations
-    algorithm based on some Pascal code from the book `Programming for Mathematicians`_.
-    I've made some improvements to my original program and adapted it to run on
-    Python 2 and 3, but the basic approach is the same.
+    This is some of the first python code that I wrote - `Python 2.5`_ and Idle on
+    Windows XP.  It's an implementation of the Johnson-Trotter permutations algorithm
+    based on a Pascal program taken from the book `Programming for Mathematicians`_
+    by Eric Seroul.  I've made some improvements to my original code and adapted it
+    to run on Python 2 and 3, but the basic approach is the same.
 
 Name rings a bell...
 ====================
 
 What wikipedia calls the `Steinhaus-Johnson-Trotter Algorithm`_ is a method of generating
-all permutations of a given sequence and was apparently known to 17th Century bell ringers!?
+all permutations of a given sequence and was apparently known to 17th Century bell ringers!
 A feature of the algorithm is that each successive permutation differs from the previous
 permutation by a single transposition (one element is swapped with another), and these
-repeated transpositions follow a fairly natural pattern:
+repeated transpositions follow a predictable pattern:
 
 .. code-block:: bash
 

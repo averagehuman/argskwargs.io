@@ -9,9 +9,8 @@ Mathematical Induction
 Scientific Inference
 --------------------
 
-**Philosophy 101** - deduction is a method of reasoning that progresses from the general
-to the particular, and induction a method of reasoning that progresses from the
-particular to the general.
+Deduction reasons from the general to the particular, while induction or inference
+reasons from the particular to the general.
 
 Deduction
 ~~~~~~~~~
@@ -21,7 +20,7 @@ Given that:
 1. All men are mortal [General Truth]
 2. Socrates is a man [Particular Truth]
 
-Then the further particular truth - Socrates is mortal - necessarily follows.
+Then a further truth - that Socrates is mortal - necessarily follows.
 
 Induction
 ~~~~~~~~~
@@ -33,13 +32,12 @@ is universal, ie. that it likely holds for every element in the collection.
 1. If all the biological life forms that we know of depend on liquid water to exist.
 2. It is likely that all biological life depends on liquid water to exist.
 
-One notable difference between the two forms of reasoning is that a deductive
+One difference between the two forms of reasoning is that a deductive
 argument can be proved or disproved, but an inductive argument can only
 be disproved since, no matter how many facts are gathered supporting a
 thesis, there is always the possibility of new evidence which goes against
 it.
 
-(See wikipedia for `a more nuanced description`_).
 
 Mathematical Induction
 ----------------------
@@ -78,16 +76,6 @@ and so on. So if you can:
 + **AND** show that the first item in the sequence is true (when \\(n = 0\\))
 
 then it can be said that the proposed theorem is true for all \\(n \\in \\mathbb{N} \\).
-
-More formally, this *Principle of Induction* can be stated:
-
-.. container:: panel highlight
-
-    .. math::
-
-        P(0) \wedge \left(\forall k \in \mathbb{N} [P(k) \Rightarrow P(k+1)]\right) \Rightarrow \forall n \in \mathbb{N} [P(n)]
-
-where \\(P\\) is any proposition involving integers.
 
 
 Strong Induction

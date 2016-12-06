@@ -74,7 +74,7 @@ Now create the client asset directories:
 
 .. code-block:: bash
 
-    (django-1.10) $ mkdir client/{sass,angular2,dist}
+    (django-1.10) $ mkdir -p client/{sass,angular2,dist}
 
 and the django STATIC_ROOT directory:
 
@@ -168,7 +168,7 @@ To check that things are working as expected, create a basic template (**bluebir
         </body>
     </html>
 
-and an associated view (**bluebird.views.index**):
+and an associated view (**bluebird/views.py**):
 
 .. code-block:: python
 
@@ -177,7 +177,7 @@ and an associated view (**bluebird.views.index**):
     def index(request):
         return render(request, 'index.html')
 
-and url pattern (**instance.urls**):
+and url pattern (**instance/urls.py**):
 
 .. code-block:: python
 

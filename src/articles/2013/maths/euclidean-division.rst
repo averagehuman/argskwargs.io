@@ -8,9 +8,8 @@ Euclidean Division
 :tags: Number Theory
 
 
-Given any two integer quantities \\(a\\) and \\(b\\), with \\(a > b\\), we can
-ask what repeated addition of \\(b\\) will give us \\(a\\). Or, equivalently,
-into what multiple of \\(b\\) can \\(a\\) be divided.
+Given any two integer quantities \\(a\\) and \\(b\\), with \\(a > b\\), it can
+be asked: into what multiple of \\(b\\) can \\(a\\) be divided?
 
 For example, \\(6 = 2 \\times 3\\) so six divided by three is two, and
 \\(7 = 2\\times3 + 1\\) so seven divided by three is two "with one over".

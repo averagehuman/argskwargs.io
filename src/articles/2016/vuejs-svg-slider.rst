@@ -10,7 +10,7 @@ VueJS First Steps - SVG Slider Component
 
 `VueJS`_  is a reactive javascript framework that will feel reasonably familiar
 to anyone that has used either `knockoutjs`_ or `angular`_. Like those other frameworks,
-VueJS features two-way binding between data and view, self-contained
+VueJS features reactive binding between data and view, self-contained
 components and templatised DOM fragments annotated inline with loops and
 conditionals.
 
@@ -57,11 +57,12 @@ Example
 -------
 
 The following is a first attempt at a Vue component. The model is a simple "stat"
-object with a numeric "value" property. This value is two-way bound to a range
-input element, and one-way bound to a coloured "pill" which is an elongated SVG
-rectangle with rounded corners. So moving the input slider changes the model data
-which in turn changes the width of the coloured pill. The component itself is
-simply a vertical sequence of these input+pill pairs at hard-coded intervals.
+object with a numeric "value" property. This value is bound to both a range
+input element and a coloured SVG "pill" (an elongated rectangle with rounded corners).
+So moving the input slider changes the model data which in turn changes the width of the
+coloured pill. The component itself is simply a vertical sequence of these input+pill
+pairs at hard-coded intervals.
+
 (Note: html range inputs are not available in IE9 or earlier).
 
 .. jsfiddle:: mdhs1t04
