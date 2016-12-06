@@ -1,4 +1,5 @@
 
-nodeenv==0.13.6
+nodeenv==1.0.0
 pelican==3.6.3
 docutils==0.12
+awscli

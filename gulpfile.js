@@ -6,7 +6,7 @@ var sequence = require('run-sequence');
 var exec = require('child_process').exec;
 
 // Check for DEBUG environment flag which signals "not production"
-var isProduction = (process.env.DEBUG == '0');
+var PRODUCTION = (process.env.DEBUG == '0');
 
 // Port to use for the development server.
 var PORT = 7070;
@@ -45,7 +45,7 @@ var PATHS = {
     'bower_components/foundation-sites/js/foundation.tabs.js',
     'bower_components/foundation-sites/js/foundation.toggler.js',
     'bower_components/foundation-sites/js/foundation.tooltip.js',
-    'src/assets/js/**/!(app).js',
+    'src/assets/js/!(app).js',
     'src/assets/js/app.js'
   ]
 };
@@ -70,49 +70,37 @@ gulp.task('copy', function() {
 // Compile Sass into CSS
 // In production, the CSS is compressed
 gulp.task('sass', function() {
-  var uncss = $.if(isProduction, $.uncss({
-    html: ['src/**/*.html'],
-    ignore: [
-      new RegExp('^meta\..*'),
-      new RegExp('^\.is-.*')
-    ]
-  }));
-
-  var minifycss = $.if(isProduction, $.minifyCss());
 
   return gulp.src('src/assets/scss/app.scss')
     .pipe($.sourcemaps.init())
     .pipe($.sass({
       includePaths: PATHS.sass
     })
-      .on('error', $.sass.logError))
+        .on('error', $.sass.logError))
     .pipe($.autoprefixer({
       browsers: COMPATIBILITY
     }))
-    .pipe(uncss)
-    .pipe(minifycss)
-    .pipe($.if(!isProduction, $.sourcemaps.write()))
+    .pipe($.if(PRODUCTION, $.cssnano()))
+    .pipe($.if(!PRODUCTION, $.sourcemaps.write()))
     .pipe(gulp.dest('src/theme/static/css'));
 });
 
 // Combine JavaScript into one file
 // In production, the file is minified
 gulp.task('javascript', function() {
-  var uglify = $.if(isProduction, $.uglify()
-    .on('error', function (e) {
-      console.log(e);
-    }));
-
   return gulp.src(PATHS.javascript)
+    .pipe($.babel())
     .pipe($.concat('app.js'))
-    .pipe(uglify)
+    .pipe($.if(PRODUCTION, $.uglify()
+      .on('error', e => { console.log(e); })
+    ))
     .pipe(gulp.dest('src/theme/static/js'));
 });
 
 // Copy images to the "dist" folder
 // In production, the images are compressed
 gulp.task('images', function() {
-  var imagemin = $.if(isProduction, $.imagemin({
+  var imagemin = $.if(PRODUCTION, $.imagemin({
     progressive: true
   }));
 
@@ -126,7 +114,7 @@ gulp.task('assets', ['sass', 'javascript', 'images', 'copy']);
 
 gulp.task('pelican', function (cb) {
   var cmd = 'make pelican';
-  if (isProduction) {
+  if (PRODUCTION) {
     cmd += ' DEBUG=0';
   };
   exec(cmd, function (err, stdout, stderr) {
