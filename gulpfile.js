@@ -112,11 +112,9 @@ gulp.task('images', function() {
 // build all assets
 gulp.task('assets', ['sass', 'javascript', 'images', 'copy']);
 
+// call pelican to build the site (only needed for development so as to refresh the site on changes)
 gulp.task('pelican', function (cb) {
   var cmd = 'make pelican';
-  if (PRODUCTION) {
-    cmd += ' DEBUG=0';
-  };
   exec(cmd, function (err, stdout, stderr) {
       console.log(stdout);
       console.log(stderr);
@@ -126,12 +124,12 @@ gulp.task('pelican', function (cb) {
 
 // Build the "dist" folder by running all of the above tasks
 gulp.task('build', function(done) {
-  sequence('clean', 'assets', 'pelican', done);
+  sequence('clean', 'assets', done);
 });
 
 // Starts a test server, which you can view at http://localhost:8079
 gulp.task('server', function() {
-  gulp.src('dist')
+  gulp.src('build')
     .pipe($.webserver({
       port: 8079,
       host: 'localhost',

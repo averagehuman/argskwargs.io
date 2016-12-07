@@ -3,6 +3,7 @@
 node_modules
 npm-debug.log
 bower_components
+build
 dist
 *.swp
 *.swo
@@ -11,5 +12,5 @@ __pycache__
 *.pyc
 *.pyo
 *.tmp
-*.komodoproject
+*.s3cfg
 
