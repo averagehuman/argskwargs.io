@@ -1,6 +1,6 @@
 
-Greatest Common Divisor (Python)
-################################
+Greatest Common Divisor
+#######################
 
 :date: 2016-05-17 13:00
 :category: Python

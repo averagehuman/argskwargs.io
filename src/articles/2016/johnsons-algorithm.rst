@@ -1,6 +1,6 @@
 
-Johnson-Trotter Algorithm (Python)
-##################################
+Johnson-Trotter Algorithm
+#########################
 
 :date: 2016-05-19 08:00
 :category: Python

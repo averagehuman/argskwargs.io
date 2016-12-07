@@ -3,25 +3,20 @@ Django Angular2 Basic Setup (Part One)
 ######################################
 
 :date: 2016-12-05 10:00
-:category: Django
+:category: Python
 :author: averagehuman
-:tags: javascript, angular
+:tags: django, javascript, angular
 
 
 .. container:: callout primary
 
     Integrating angular2 typescript compilation and browserification with Django static files handling.
 
-
 A two part post describing an end to end asset production flow for a django/angular2 application.
-
-The first part sets out the django side of managing and serving static browser assets, and the second
-part will describe the nodejs tooling required to produce those assets.
-
-Note that this first part outlines a generic approach to handling static files with Django, there's
-nothing particular to angular or typescript at this point.
-
-Tested with python3.
+The first part sets out the django side of managing and serving static browser assets, and the
+second part will describe the nodejs tooling required to produce those assets. Note that this
+first part outlines a generic approach to handling static files with Django, there's nothing
+particular to angular or typescript at this point. Tested with python3.
 
 Requirements
 ------------
@@ -157,6 +152,7 @@ To check that things are working as expected, create a basic template (**bluebir
 
 .. code-block:: html
 
+    {% load static %}
     <!DOCTYPE html>
     <html>
         <head>
