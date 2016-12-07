@@ -174,6 +174,14 @@ Salt itself is a python package with a standard ``setup.py`` and there is a mult
 downloading and installing the salt package and configuring the system as either a master or
 minion (or both).
 
+The ansible task is then simply a call to this script:
+
+.. code-block:: bash
+
+    # Install salt-master service (-M) but not a salt-minion (-N)
+    - name: Install saltmaster from bootstrap script
+      script: files/bootstrap-salt.sh -M -N creates=/lib/systemd/system/salt-master.service
+
 `See github`_ for a complete ansible setup that installs both `salt`_ and `jenkins`_.
 
 

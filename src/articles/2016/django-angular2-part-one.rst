@@ -150,7 +150,7 @@ Create a template and view
 
 To check that things are working as expected, create a basic template (**bluebird/templates/index.html**):
 
-.. code-block:: html
+.. code-block:: htmldjango
 
     {% load static %}
     <!DOCTYPE html>

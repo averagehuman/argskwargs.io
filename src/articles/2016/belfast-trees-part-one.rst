@@ -8,7 +8,9 @@ Belfast Trees Database (Part One)
 :tags: opendatani
 
 
-Being but men, we catalogue trees.
+.. container:: callout primary
+
+    Being but men, we catalogue trees.
 
 To get a csv list of around 38000 Belfast trees from the `opendatani`_ web site you
 can simulate clicking the download button with curl:
@@ -32,14 +34,14 @@ the CSV data wrapper is builtin.
 
 `Download trees.csv`_
 
-Visualisation
-=============
-
-The Open Data Institute has a map visualisation of all the trees:
-http://belfast.theodi.org/2015/07/29/city-open-data/
-
 In the `next post`_ the csv file is set up as a `foreign data wrapper`_ so that it can be
 more easily queried.
+
+get_belfast_trees_csv.py
+========================
+
+[[ gist averagehuman:baadeb24e717231b2acdd1d86b861769 ]]
+
 
 .. _being but men: http://www.poemhunter.com/best-poems/dylan-thomas/being-but-men/
 .. _opendatani: https://www.opendatani.gov.uk/

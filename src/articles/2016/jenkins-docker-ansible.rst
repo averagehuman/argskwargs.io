@@ -1,6 +1,6 @@
 
-Deploy Jenkins in a Docker container with Ansible
-#################################################
+Deploy Jenkins with Docker and Ansible
+######################################
 
 :date: 2016-07-11 08:00
 :category: Ops

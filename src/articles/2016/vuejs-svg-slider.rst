@@ -1,6 +1,6 @@
 
-VueJS First Steps - SVG Slider Component
-========================================
+VueJS First Steps
+=================
 
 :tags: VueJs, SVG
 :category: Javascript

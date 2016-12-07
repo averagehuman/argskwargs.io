@@ -140,8 +140,28 @@ How does condition relate to age?
     -------
     174
 
-So there are more Young trees in poor condition than Mature or Fully Mature trees in poor
-condition.
+    ==> select round(
+            100.0 * (select count(*) from belfast_trees where age <='Young' and condition < 'Fair') /
+                    (select count(*) from belfast_trees where age <= 'Young')
+            , 1)
+        as percent;
+
+    percent 
+    ---------
+    7.4
+
+    ==> select round(
+            100.0 * (select count(*) from belfast_trees where age >='Mature' and condition < 'Fair') /
+                    (select count(*) from belfast_trees where age >= 'Mature')
+            , 1)
+        as percent;
+
+    percent 
+    ---------
+    11.0
+
+So there are more Young trees in poor condition than Mature trees in poor condition but, relative
+to the respective population, more of the older trees are poor.
 
 And so on.
 
