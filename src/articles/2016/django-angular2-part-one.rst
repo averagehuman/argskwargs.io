@@ -6,17 +6,18 @@ Django Angular2 Basic Setup (Part One)
 :category: Python
 :author: averagehuman
 :tags: django, javascript, angular
+:summary: Integrating angular2 typescript compilation and browserification with Django static files handling (Part One).
 
 
 .. container:: callout primary
 
     Integrating angular2 typescript compilation and browserification with Django static files handling.
 
-A two part post describing an end to end asset production flow for a django/angular2 application.
-The first part sets out the django side of managing and serving static browser assets, and the
-second part will describe the nodejs tooling required to produce those assets. Note that this
-first part outlines a generic approach to handling static files with Django, there's nothing
-particular to angular or typescript at this point. Tested with python3.
+    1. Managing and serving static browser assets with Django
+    2. `Typescript processing with gulp and yarn`_
+
+
+Outline of a generic approach to handling static files with Django.  Tested with python3.
 
 Requirements
 ------------
@@ -205,4 +206,5 @@ Then the website root should again display the blue uppercase title as before.
 
 
 .. _whitenoise: http://whitenoise.evans.io/
+.. _Typescript processing with gulp and yarn: {filename}django-angular2-part-two.rst
 

@@ -6,10 +6,8 @@
 
 @include foundation-global-styles;
 @include foundation-grid;
-@include foundation-off-canvas;
 @include foundation-typography;
 @include foundation-button;
-@include foundation-forms;
 @include foundation-visibility-classes;
 @include foundation-float-classes;
 @include foundation-badge;
@@ -78,19 +76,6 @@ blockquote, blockquote p {
 .site-menu a.button:hover, .site-menu a.button:focus {
     background: $brand-bg-dark !important;
 }
-#off-canvas-panel {
-    height: 100%;
-    background: $brand-bg-light !important;
-}
-#off-canvas-panel .site-menu {
-    margin: 2.5em 0;
-}
-#off-canvas-panel .close-button, #off-canvas-panel .close-button:visited {
-    color: skyblue;
-}
-#off-canvas-panel .close-button:hover {
-    color: black;
-}
 .site-info {
     font-size: 11px;
     color: cadetblue;
@@ -139,9 +124,9 @@ blockquote, blockquote p {
 /* vcard */
 
 .vanity {
-    background-color: #090c09;
+    background-color: $nav-bg;
     padding: 0 12px;
-    margin-bottom: 35px;
+    margin-bottom: 20px;
     border-bottom: solid 4px $body-link-fg;
 }
 .vanity .brand {
@@ -171,8 +156,7 @@ blockquote, blockquote p {
     font-family: 'Roboto', serif;
 }
 .vcard .desc {
-    color: #cfdfcf;
-    color: #b9bcb8;
+    color: $nav-fg;
     white-space: nowrap;
     font-weight: normal;
     font-style: italic;
@@ -187,8 +171,7 @@ blockquote, blockquote p {
 .vcard .menu.linkto {
 }
 .vcard .menu.linkto > li > a, .vcard .menu.linkto > li > a:visited {
-    color: #cfdfcf;
-    color: #b9bcb8;
+    color: $nav-fg;
     font-size: 26px;
     padding: 0.2em 0.4em 0.3em;
 }
@@ -367,7 +350,7 @@ blockquote.bigstyle cite {
   background-color: $footer-bg;
   color: $footer-fg;
   padding: 0.5rem 0;
-  border-top: solid 1px $body-link-fg;
+  border-top: solid 3px $body-link-fg;
 }
 
 .footer {

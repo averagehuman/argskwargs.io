@@ -8,31 +8,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.4/vue.min.js"></script>
 {% endblock %}
 
-{% block siteheader %}
-<div class="vanity">
-    <div class="inner">
-        <div class="row small-collapse medium-uncollapse">
-            <div class="small-12 medium-6 columns">
-                <div class="vcard">
-                    <h1 class="brand text-left"><a href="/">*args<span class="brand-secondary"> **kwargs</span></a></h1>
-                    <h6 class="desc">Web Development Odds & Ends</h6>
-                    <ul class="menu linkto">
-                        <li><a href="https://github.com/averagehuman"><i class="fa fa-github"></i></a></li>
-                        <li><a href="https://twitter.com/gmflanagan"><i class="fa fa-twitter"></i></a></li>
-                        <li><a data-toggle="off-canvas-panel"><i class="fa fa-bars"></i></a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="hide-for-small-only medium-5 columns">
-                <div class="pic">
-                    <img class="thumbnail" src="/assets/img/vanity.gif" alt="Fritz Lang Metropolis Gif" />
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-{% endblock %}
-
 {% block content %}
     {% include 'article_list.html' %}
     <script>
