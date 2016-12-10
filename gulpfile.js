@@ -21,6 +21,9 @@ var PATHS = {
     '!src/assets/*~',
     '!src/assets/*.swp'
   ],
+  root_assets: [
+    './favicon.ico'
+  ],
   sass: [
     'bower_components/foundation-sites/scss',
     'bower_components/motion-ui/src/',
@@ -42,7 +45,6 @@ var PATHS = {
     'bower_components/foundation-sites/js/foundation.responsiveToggle.js',
     'bower_components/foundation-sites/js/foundation.reveal.js',
     'bower_components/foundation-sites/js/foundation.sticky.js',
-    'bower_components/foundation-sites/js/foundation.tabs.js',
     'bower_components/foundation-sites/js/foundation.toggler.js',
     'bower_components/foundation-sites/js/foundation.tooltip.js',
     'src/assets/js/!(app).js',
@@ -63,8 +65,9 @@ gulp.task('clean', function(done) {
 // Copy files out of the assets folder
 // This task skips over the "img", "js", and "scss" folders, which are parsed separately
 gulp.task('copy', function() {
-  gulp.src(PATHS.assets)
-    .pipe(gulp.dest('src/theme/static'));
+  gulp.src(PATHS.assets).pipe(gulp.dest('src/theme/static'));
+  gulp.src(PATHS.root_assets).pipe(gulp.dest('build'));
+  gulp.src(PATHS.root_assets).pipe(gulp.dest('dist'));
 });
 
 // Compile Sass into CSS

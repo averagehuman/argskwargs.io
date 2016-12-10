@@ -1,4 +1,4 @@
-{% if DEFAULT_PAGINATION %}
+{% if DEFAULT_PAGINATION and articles_paginator.num_pages > 1%}
 <div class="pagination-centered">
 <h6 class="subheader">Page {{ articles_page.number }} of {{ articles_paginator.num_pages }}</h6>
 

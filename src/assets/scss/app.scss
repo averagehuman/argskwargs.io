@@ -103,16 +103,15 @@ blockquote, blockquote p {
     text-decoration: underline;
 }
 
-.site-header .brand {
+.brand {
     white-space: nowrap;
     font-style: italic;
     font-size: 1.9em;
     margin: 0;
     padding: 0.35em 0 0;
 }
-.site-header .brand-secondary {
+.brand-secondary {
     color: lighten($brand-bg, 10%);
-    font-style: italic;
 }
 .preamble {
     margin-bottom: 1.1rem;
@@ -136,6 +135,75 @@ blockquote, blockquote p {
 .breadcrumbs > li > a:hover, .breadcrumbs > li > a:focus {
     color: darken($brand-bg, 10%) !important;
 }
+
+/* vcard */
+
+.vanity {
+    background-color: #090c09;
+    padding: 0 12px;
+    margin-bottom: 35px;
+    border-bottom: solid 4px $body-link-fg;
+}
+.vanity .brand {
+    font-size: 2.0em;
+}
+.vanity .brand > a, .vanity .brand > a:hover, .vanity .brand > a:active {
+    color: crimson;
+    text-decoration: none;
+}
+.vanity .brand-secondary {
+    color: #b9bcb8;
+}
+.vanity .thumbnail {
+    border: 0;
+    outline: 0;
+    margin-bottom: 0;
+    height: 120px;
+    float: right;
+}
+.vanity .thumbnail:hover {
+    border: 0;
+    outline: 0;
+}
+.vcard {
+    color: #fff;
+    border-radius: 3px;
+    font-family: 'Roboto', serif;
+}
+.vcard .desc {
+    color: #cfdfcf;
+    color: #b9bcb8;
+    white-space: nowrap;
+    font-weight: normal;
+    font-style: italic;
+    font-size: 0.9em;
+    padding-left: 8px;
+    margin-bottom: 0;
+}
+
+.vcard > .inner {
+}
+
+.vcard .menu.linkto {
+}
+.vcard .menu.linkto > li > a, .vcard .menu.linkto > li > a:visited {
+    color: #cfdfcf;
+    color: #b9bcb8;
+    font-size: 26px;
+    padding: 0.2em 0.4em 0.3em;
+}
+.vcard .menu.linkto > li > a:hover {
+    color: #efefef;
+}
+.vcard .neon-blink {
+    font-size: 36px;
+}
+
+.button.canvas-toggle {
+    background: transparent;
+    font-size: 1.4em;
+}
+/*********/
 
 .site-content {
     background-color: $body-text-bg;

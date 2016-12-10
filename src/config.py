@@ -3,6 +3,10 @@
 from __future__ import unicode_literals
 import os
 
+from pygments.formatters.html import _escape_html_table
+
+_escape_html_table[ord('%')] = u'&#37;'
+
 DEBUG = bool(int(os.environ.get('DEBUG', '1')))
 
 AUTHOR = os.environ.get('PELICAN_AUTHOR', 'unknown')
@@ -72,5 +76,4 @@ SITEMAP = {
 MATH_JAX = {
     'align': 'left',
     'indent': '2em',
-} 
-
+}

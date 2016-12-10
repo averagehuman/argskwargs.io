@@ -3,12 +3,19 @@
     <meta charset="utf-8" />
     <!-- Set the viewport width to device width for mobile -->
     <meta name="viewport" content="width=device-width" />
+    <meta name="author" content="Gerard Flanagan" />
+    <meta name="description" content="{% block meta_description %}Gerard Flanagan Technical Blog. Web Development. Software. That kind of thing.{% endblock %}" />
+    <meta name="keywords" content="{% block meta_keywords %}Gerard Flanagan,Blog,Web Development,Software,Python,Django,Javascript,Belfast,Northern Ireland,UK{% endblock %}" />
+    <meta name="content-language" content="en" />
+    <link rel="shortcut icon" href="/assets/img/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/assets/img/favicon.ico" type="image/x-icon">
 
     <title>{% block title %}{{ SITENAME }}{%endblock%}</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
     <link href='http://fonts.googleapis.com/css?family=Inconsolata:400,700|Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic|Roboto+Slab:400,700,300,100' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="{{ SITEURL }}/assets/css/app.css" />
+    {% block extrahead %}{% endblock %}
 </head>
 
 <body>
@@ -21,7 +28,7 @@
             </button>
 
             <ul class="vertical menu site-menu">
-                <li><a class="button" href="/about">Home</a></li>
+                <li><a class="button" href="/">Home</a></li>
                 <li><a class="button" href="/about">About</a></li>
                 <li><a class="button" href="https://github.com/averagehuman">Github</a></li>
             </ul>
@@ -33,20 +40,24 @@
             </div>
         </div>
         <div class="off-canvas-content" data-off-canvas-content>
+            {% block siteheader %}
             <header class="site-header">
                 <div class="row">
                     <div class="small-6 columns">
                         <h1 class="brand text-left"><a href="/">*args<span class="brand-secondary"> **kwargs</span></a></h1>
                     </div>
                     <div class="small-6 columns text-right">
+                        {% block sitemenu %}
                         <div class="secondary button-group site-menu right">
                             {% block menu_buttons %}{% endblock %}
                             <a class="button hide-for-small-only" href="/"><i class="fa fa-home"></i></a>
                             <a class="button" data-toggle="off-canvas-panel"><i class="fa fa-bars"></i></a>
                         </div>
+                        {% endblock %}
                     </div>
                 </div>
             </header>
+            {% endblock %}
 
             <!-- Main Page Content and Sidebar -->
             <div class="site-content">

@@ -14,9 +14,6 @@ Deploy Jenkins with Docker and Ansible
     behind nginx.
     
 
-The latest code is `on github`_.
-
-
 Install Docker
 --------------
 
@@ -77,6 +74,9 @@ Docker **-v** option to map the volume to, say, **/share/volumes/jenkins** on th
             - "/share/jenkins:/var/jenkins_home"
         state: present
         recreate: no
+
+Create Service
+--------------
 
 Now create a service script to allow starting and stopping of the container:
 

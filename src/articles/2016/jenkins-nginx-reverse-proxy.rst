@@ -89,7 +89,6 @@ And create the jenkins proxy config:
 
       # Using a wildcard server_name which will match any incoming request.
       # This should ultimately be set to be the expected host, eg. server_name jenkins.mydomain.com;
-
       server_name     _;
 
       root            /var/www/jenkins/;
@@ -101,7 +100,6 @@ And create the jenkins proxy config:
 
             # Rewrite all static files into requests to the site root
             # E.g /static/12345678/css/something.css will become /css/something.css
-
             rewrite "^/static/[0-9a-fA-F]{8}\/(.*)" /$1 last;
       }
 
@@ -140,7 +138,7 @@ And create the jenkins proxy config:
     }
   }
 
-Copy this config to ``/etc/nginx/sites-available`` create a symlink in ``/etc/nginx/sites-enabled``:
+Copy this config to ``/etc/nginx/sites-available`` and create a symlink in ``/etc/nginx/sites-enabled``:
 
 .. code-block:: bash
 

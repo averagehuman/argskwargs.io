@@ -38,7 +38,7 @@ venv:
 
 nodejs:
 	@if [ ! -e $(NODE) ]; then \
-		echo "Installing nodejs. This may take a few minutes." && $(VENV)/bin/nodeenv -v -p --node=$(NODE_VERSION); \
+		echo "Installing nodejs." && $(VENV)/bin/nodeenv -v -p --node=$(NODE_VERSION); \
 	fi
 
 install: venv nodejs
