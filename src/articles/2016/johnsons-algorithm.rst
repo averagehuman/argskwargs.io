@@ -12,7 +12,7 @@ Johnson-Trotter Algorithm
     This is some of the first python code that I wrote - `Python 2.5`_ and Idle on
     Windows XP.  It's an implementation of the Johnson-Trotter permutations algorithm
     based on a Pascal program taken from the book `Programming for Mathematicians`_
-    by Eric Seroul.  I've made some improvements to my original code and adapted it
+    by Raymond Seroul.  I've made some improvements to my original code and adapted it
     to run on Python 2 and 3, but the basic approach is the same.
 
 Name rings a bell...

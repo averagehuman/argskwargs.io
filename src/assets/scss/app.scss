@@ -61,6 +61,10 @@ code, pre, tt, kbd {
     font-size: 16px;
     color: #222;
 }
+tt.literal {
+    background-color: lighten(yellow, 30%);
+    font-weight: bold;
+}
 blockquote, blockquote p {
     color: #7a7a7a;
 }
@@ -378,7 +382,7 @@ blockquote.bigstyle cite {
 
 .highlight {
     font-family:"Lucida Console", Monaco, monospace;
-    background-color:#f7f9fa;
+    background-color: $code-bg;
     color:#002b36;
     white-space:nowrap;
     line-height:1.2em;
