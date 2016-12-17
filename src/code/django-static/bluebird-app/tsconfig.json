@@ -1,9 +1,8 @@
 {
-    "files": [
-        "client/src/main.ts"
-    ],
     "compilerOptions": {
-        "noImplicitAny": true,
-        "target": "es5"
+        "module": "commonjs",
+        "target": "es5",
+        "noImplicitAny": false,
+        "sourceMap": false
     }
 }

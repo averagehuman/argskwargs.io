@@ -1,4 +1,4 @@
-function hello(compiler: string) {
-    console.log(`Hello from ${compiler}`);
-}
-hello("TypeScript");
+
+import { Insults } from "./insults";
+
+console.log(Insults.random())
