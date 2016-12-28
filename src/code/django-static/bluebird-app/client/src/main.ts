@@ -1,4 +1,6 @@
 
 import { Insults } from "./insults";
 
-console.log(Insults.random())
+var insult = Insults.random();
+
+document.write(`<h1>${insult}</h1>`);
