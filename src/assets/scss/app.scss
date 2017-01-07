@@ -31,11 +31,26 @@
 @include motion-ui-transitions;
 @include motion-ui-animations;
 
-html, body {
-    height: 100%;
+html {
+    position: relative;
+    min-height: 100%;
+}
+body {
+    margin: 0 0 50px;
     font-family: 'Roboto Slab', serif;
     background-color: $body-bg;
     font-size: 18px;
+}
+footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 50px;
+    width: 100%;
+    background-color: $footer-bg;
+    color: $footer-fg;
+    border-top: solid 3px $body-link-fg;
+    padding-top: 10px;
 }
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Roboto', sans-serif;
@@ -196,7 +211,6 @@ blockquote, blockquote p {
     background-color: $body-text-bg;
     padding-top: 0.5em;
     padding-bottom: 4.5em;
-    min-height: 640px;
     font-size: 16px;
 
 }
@@ -352,19 +366,13 @@ blockquote.bigstyle cite {
 /* footer */
 
 .footer {
-  background-color: $footer-bg;
-  color: $footer-fg;
-  padding: 0.5rem 0;
-  border-top: solid 3px $body-link-fg;
 }
 
 .footer {
-  h4 {
+  h6 {
     color: $footer-fg;
-    font-size: 1em;
-    font-weight: 400;
-    text-transform: uppercase;
-    margin-top: 2.5rem;
+    font-size: .9em;
+    font-weight: 300;
   }
   p {
     font-weight: 300;

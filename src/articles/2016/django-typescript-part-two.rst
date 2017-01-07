@@ -2,7 +2,7 @@
 Django, Typescript, Gulp (Part Two)
 ######################################
 
-:date: 2016-12-11 10:00
+:date: 2016-12-18 10:00
 :category: Javascript
 :author: averagehuman
 :summary: Integrating typescript compilation and browserification with Django static files handling (Part Two).

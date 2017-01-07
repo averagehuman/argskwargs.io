@@ -6,45 +6,9 @@ Mathematical Induction
 :author: averagehuman
 :category: maths
 
-Scientific Inference
---------------------
 
-Deduction reasons from the general to the particular, while induction or inference
-reasons from the particular to the general.
-
-Deduction
-~~~~~~~~~
-
-Given that:
-
-1. All men are mortal [General Truth]
-2. Socrates is a man [Particular Truth]
-
-Then a further truth - that Socrates is mortal - necessarily follows.
-
-Induction
-~~~~~~~~~
-
-Given that a particular truth holds for each element in a given subset of a
-collection, it may be reasonable to induce or infer the probability that the truth
-is universal, ie. that it likely holds for every element in the collection.
-
-1. If all the biological life forms that we know of depend on liquid water to exist.
-2. It is likely that all biological life depends on liquid water to exist.
-
-One difference between the two forms of reasoning is that a deductive
-argument can be proved or disproved, but an inductive argument can only
-be disproved since, no matter how many facts are gathered supporting a
-thesis, there is always the possibility of new evidence which goes against
-it.
-
-
-Mathematical Induction
-----------------------
-
-Mathematical Induction has a stricter definition and shouldn't be confused
-with the more general scientific method. A good informal analogy is a line
-of up-ended dominos - if you can show that:
+A good informal analogy of mathematical induction is a line
+of up-ended dominos - if you can show that both of the following are true:
 
 1. If **any** one of the dominos fall, then the next domino will also fall
 2. The first domino must fall

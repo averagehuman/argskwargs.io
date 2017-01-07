@@ -13,16 +13,6 @@ container as a debian system service, and the steps outlined there should get
 you to the point of having a new Jenkins instance running on port 8080. The next
 step then is to set up `nginx`_ as a reverse proxy for the Jenkins server - ie.
 requests are directed to nginx on port 80 before being passed on to Jenkins.
-(Use a firewall rule to block direct external access to the jenkins port).
-
-This is a common setup with Django, for example, where nginx sits in front of a
-number of gunicorn or uwsgi or apache/mod_wsgi servers and reduces load and
-complexity on those servers by:
-
-+ serving static files directly
-+ dealing with slow clients
-+ handling ssl termination
-
 
 Symlink the asset directories
 -----------------------------

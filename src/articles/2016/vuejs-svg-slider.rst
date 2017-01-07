@@ -78,7 +78,7 @@ pairs at hard-coded intervals.
 .. _$http: https://docs.angularjs.org/api/ng/service/$http
 .. _$cookies: https://docs.angularjs.org/api/ngCookies/service/$cookies
 .. _plugins: https://vuejs.org/guide/plugins.html
-.. _a larger application: https://vuejs.org/guide/application.html
+.. _a larger application: http://v1.vuejs.org/guide/application.html
 .. _was released last year: http://vuejs.org/2015/10/26/1.0.0-release/
 .. _was recently announced: http://vuejs.org/2016/04/27/announcing-2.0/
 
