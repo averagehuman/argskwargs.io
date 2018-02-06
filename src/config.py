@@ -15,7 +15,7 @@ SITENAME = "argskwargs"
 SITEURL = "http://argskwargs.io"
 
 if DEBUG:
-    SITEURL = 'http://localhost:8079'
+    SITEURL = 'http://localhost:8000'
 
 TIMEZONE = 'Europe/London'
 

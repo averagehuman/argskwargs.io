@@ -44,6 +44,20 @@ const PATHS = {
       "assets/scss/components"
     ]
   },
+  javascript: [
+    'node_modules/jquery/dist/jquery.js',
+    'node_modules/what-input/dist/what-input.js',
+    'node_modules/foundation-sites/js/foundation.core.js',
+    'node_modules/foundation-sites/js/foundation.util.*.js',
+    'node_modules/foundation-sites/js/foundation.reveal.js',
+    'node_modules/foundation-sites/js/foundation.toggler.js',
+    'node_modules/foundation-sites/js/foundation.tooltip.js',
+    'assets/js/!(app).js',
+    'assets/js/app.js'
+  ],
+  extras: [
+      './favicon.ico'
+  ],
   pelican: {
     src: "src",
     dest: "build",
@@ -67,26 +81,39 @@ const PELICAN_BUILD_CMD = [
 // Check for --production flag
 const PRODUCTION = !!(yargs.argv.production);
 
-
-//-------------------------------------------------------------------------------------------------
-// Gulp tasks
-//-------------------------------------------------------------------------------------------------
-
-gulp.task('assets',
- gulp.series(clean, sass));
-
-// Build the "dest" folder by running all of the below tasks
-gulp.task('build',
- gulp.series(clean, sass, pelican));
-
-// Build the site, run the server, and watch for file changes
-gulp.task('default',
-  gulp.series('build', server, watch));
-
 // Delete the "build" folder
 // This happens every time a build starts
 function clean(done) {
   rimraf(PATHS.pelican.dest, done);
+}
+
+// Copy files out of the assets folder
+function copy() {
+  return gulp.src(PATHS.extras).pipe(gulp.dest(PATHS.pelican.dest));
+}
+
+// Combine JavaScript into one file
+// In production, the file is minified
+function javascript() {
+  return gulp.src(PATHS.javascript)
+    .pipe($.babel())
+    .pipe($.concat('app.js'))
+    .pipe($.if(PRODUCTION, $.uglify()
+      .on('error', e => { console.log(e); })
+    ))
+    .pipe(gulp.dest('src/theme/static/js'));
+}
+
+// Copy images to the "dist" folder
+// In production, the images are compressed
+function images() {
+  var imagemin = $.if(PRODUCTION, $.imagemin({
+    progressive: true
+  }));
+
+  return gulp.src('assets/img/**/*')
+    .pipe(imagemin)
+    .pipe(gulp.dest('src/theme/static/img'));
 }
 
 // Compile Sass into CSS
@@ -155,3 +182,19 @@ function watch() {
     `${PATHS.pelican.src}/**/*`,
   ]).on('all', gulp.series(pelican, reload));
 }
+
+//-------------------------------------------------------------------------------------------------
+// Gulp tasks
+//-------------------------------------------------------------------------------------------------
+
+// build all assets
+gulp.task('assets', gulp.parallel(sass, javascript, images, copy));
+
+// Build the "dest" folder by running all of the below tasks
+gulp.task('build', gulp.series(clean, 'assets', pelican));
+
+// Build the site, run the server, and watch for file changes
+gulp.task('default', gulp.series('build', server, watch));
+
+
+

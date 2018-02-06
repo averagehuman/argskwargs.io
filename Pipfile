@@ -1,0 +1,16 @@
+[[source]]
+
+verify_ssl = true
+name = "pypi"
+url = "https://pypi.python.org/simple"
+
+
+[packages]
+
+pelican = "==3.7.1"
+docutils = "==0.14"
+awscli = "*"
+
+
+[dev-packages]
+
