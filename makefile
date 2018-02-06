@@ -1,18 +1,13 @@
 
 SHELL := /bin/bash
-VIRTUAL_ENV ?= $(abspath .pyenv)
 VENV := $(VIRTUAL_ENV)
 PYTHON := python3
-PIP := $(VENV)/bin/pip
-NODE := $(VENV)/bin/node
 NODE_VERSION := 6.9.1
-NPM := $(VENV)/bin/npm
 BOWER := $(abspath node_modules/.bin/bower)
 GULP := $(abspath node_modules/.bin/gulp)
 INPUTDIR := $(abspath src)
 BUILDDIR := $(abspath build)
 OUTPUTDIR := $(abspath dist)
-PELICAN := $(VENV)/bin/pelican
 PELICAN_PLUGINS := $(abspath src/plugins)
 PELICAN_CONFIG := $(INPUTDIR)/config.py
 GREP_AWS_CREATE_KEY := grep -s "^stout," $(HOME)/.aws/credentials.csv | awk -F "," '{ print $$3 }'
@@ -29,34 +24,24 @@ export PELICAN_AUTHOR
 export PELICAN_SITENAME
 export PELICAN_SITEURL
 
-.PHONY: venv nodejs install start serve pelican site publish clean nuke
+.PHONY: nodejs install start serve pelican site publish clean nuke
 
-venv:
-	@if [ ! -e $(VENV) ]; then virtualenv -v -p $(PYTHON) $(VENV); fi
-	@$(PIP) install -U pip
-	@$(PIP) install -r requirements.txt
-
-nodejs:
-	@if [ ! -e $(NODE) ]; then \
-		echo "Installing nodejs." && $(VENV)/bin/nodeenv -v -p --node=$(NODE_VERSION); \
-	fi
-
-install: venv nodejs
-	@source $(VENV)/bin/activate && $(NPM) install && $(BOWER) install
+install:
+	@source npm install && $(BOWER) install
 
 # call the default gulp task (build assets, build site, start web server and watch files)
 develop:
-	@source $(VENV)/bin/activate && DEBUG=1 $(GULP)
+	@DEBUG=1 $(GULP)
 
 # build the site for development (called by gulp task)
 pelican:
-	@DEBUG=1 $(PELICAN) $(INPUTDIR) -o $(BUILDDIR) -s $(PELICAN_CONFIG) -D
+	@DEBUG=1 pelican $(INPUTDIR) -o $(BUILDDIR) -s $(PELICAN_CONFIG) -D
 
 # build the site for production (called by the deploy command)
 publish:
 	@rm -rf $(OUTPUTDIR)
 	@source $(VENV)/bin/activate && DEBUG=0 $(GULP) build
-	@DEBUG=0 $(PELICAN) $(INPUTDIR) -o $(OUTPUTDIR) -s $(PELICAN_CONFIG)
+	@DEBUG=0 pelican $(INPUTDIR) -o $(OUTPUTDIR) -s $(PELICAN_CONFIG)
 
 # stout creates the s3 bucket and cloudfront distribution correctly
 stout.create:
@@ -73,7 +58,6 @@ s3.deploy:
 deploy: publish s3.deploy
 
 environ:
-	@echo "VIRTUAL_ENV = $(VIRTUAL_ENV)"
 	@echo "DEBUG = $(DEBUG)"
 	@echo "AWS_KEY = $$($(GREP_AWS_KEY))"
 	@echo "AWS_SECRET = $$($(GREP_AWS_SECRET))"
@@ -84,7 +68,6 @@ clean:
 	@rm -rf src/theme/assets
 
 nuke: clean
-	@rm -rf $(VIRTUAL_ENV)
 	@rm -rf ./node_modules
 	@rm -rf ./bower_components
 

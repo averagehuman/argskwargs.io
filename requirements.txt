@@ -1,5 +1,4 @@
 
-nodeenv==1.0.0
-pelican==3.6.3
-docutils==0.12
+pelican==3.7.1
+docutils==0.14
 awscli
