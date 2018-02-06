@@ -9,29 +9,15 @@
 {% endblock %}
 
 
-{% block siteheader %}
-<header class="site-header">
-    <div class="row">
-        <div class="small-6 columns">
-            <h1 class="brand text-left"><a href="/">*args<span class="brand-secondary"> **kwargs</span></a></h1>
-        </div>
-        <div class="small-6 columns text-right">
-            {% block sitemenu %}
-            <div class="secondary button-group site-menu right">
-                {% if article.prev_article %}
-                    <a class="button" href="{{ SITEURL }}/{{article.prev_article.url}}" title="{{article.prev_article.title|striptags}}"><i class="fa fa-arrow-left"></i></a>
-                {% endif %}
-                {% if article.next_article %}
-                    <a class="button" href="{{ SITEURL }}/{{article.next_article.url}}" title="{{article.next_article.title|striptags}}"><i class="fa fa-arrow-right"></i></a>
-                {% endif %}
+{% block sitemenu %}
+    {{ super() }}
+    {% if article.prev_article %}
+        <a class="button" href="{{ SITEURL }}/{{article.prev_article.url}}" title="Older - {{article.prev_article.title|striptags}}"><i class="fa fa-arrow-left"></i></a>
+    {% endif %}
+    {% if article.next_article %}
+        <a class="button" href="{{ SITEURL }}/{{article.next_article.url}}" title="Newer - {{article.next_article.title|striptags}}"><i class="fa fa-arrow-right"></i></a>
+    {% endif %}
 
-                <a class="button hide-for-small-only" href="/"><i class="fa fa-home"></i></a>
-                <a class="button" data-open="infoModal"><i class="fa fa-plus"></i></a>
-            </div>
-            {% endblock %}
-        </div>
-    </div>
-</header>
 {% endblock %}
 
 {% block content %}

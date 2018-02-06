@@ -55,11 +55,11 @@ footer {
     position: absolute;
     left: 0;
     bottom: 0;
-    height: 50px;
+    height: 60px;
     width: 100%;
     background-color: $footer-bg;
     color: $footer-fg;
-    border-top: solid 3px $body-link-fg;
+    border-top: solid 4px darken($body-link-fg, 10%);
     padding-top: 10px;
 }
 h1, h2, h3, h4, h5, h6 {
@@ -79,6 +79,8 @@ h3 {
     font-size: 1.1rem;
     text-transform: uppercase;
     color: $brand-bg;
+    margin-top: 0.9rem;
+    text-decoration: underline;
 }
 code, pre, tt, kbd {
     font-family: 'Inconsolata', sans-serif;
@@ -99,22 +101,48 @@ blockquote, blockquote p {
     margin-bottom: 0.5em;
     font-family: 'Roboto', sans-serif;
 }
-.site-menu a.button, .site-menu a.button:visited {
-    background: $brand-bg-light !important;
+.front-menu {
+    float: right;
+    font-family: 'Roboto', sans-serif;
+    position: relative;
+    top: 35px;
+    a.button, a.button:visited {
+        font-size: 1rem;
+        background: $dark-gray;
+        border: 0;
+        border-bottom: 5px solid darken($body-link-fg, 10%);
+        color: $light-gray;
+        .fa {
+            font-size: 13px;
+        }
+    }
+    a.button:hover, a.button:focus {
+        background: darken($dark-gray, 10%);
+        color: $white;
+    }
+    a.button.active {
+        background-color: darken($body-link-fg, 10%);
+    }
 }
-.site-menu a.button:hover, .site-menu a.button:focus {
-    background: $brand-bg-dark !important;
+.site-menu {
+    float: right;
+    a.button, a.button:visited {
+        background: $brand-bg-light !important;
+    }
+    a.button:hover, a.button:focus {
+        background: $brand-bg-dark !important;
+    }
 }
 .site-info {
     font-size: 11px;
     color: cadetblue;
     padding: 5px;
-}
-.site-info a, .site-info a:visited {
-    color: skyblue;
-}
-.site-info a:hover {
-    text-decoration: underline;
+    a, a:visited {
+        color: skyblue;
+    }
+    a:hover {
+        text-decoration: underline;
+    }
 }
 
 .brand {
@@ -156,7 +184,7 @@ blockquote, blockquote p {
     background-color: $nav-bg;
     padding: 0 12px;
     margin-bottom: 20px;
-    border-bottom: solid 4px $body-link-fg;
+    border-bottom: solid 5px darken($body-link-fg, 10%);
 }
 .vanity .brand {
     font-size: 2.0em;
@@ -194,21 +222,16 @@ blockquote, blockquote p {
     margin-bottom: 0;
 }
 
-.vcard > .inner {
-}
-
-.vcard .menu.linkto {
-}
-.vcard .menu.linkto > li > a, .vcard .menu.linkto > li > a:visited {
-    color: $nav-fg;
-    font-size: 26px;
-    padding: 0.2em 0.4em 0.3em;
-}
-.vcard .menu.linkto > li > a:hover {
-    color: #efefef;
-}
-.vcard .neon-blink {
-    font-size: 36px;
+.menu.linkto {
+    float: right;
+    > li > a, > li > a:visited {
+        color: $nav-fg;
+        font-size: 26px;
+        padding: 0 0.4em 0.3em;
+    }
+    > li > a:hover {
+        color: #efefef;
+    }
 }
 
 .button.canvas-toggle {

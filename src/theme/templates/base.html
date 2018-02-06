@@ -29,18 +29,22 @@
                     <div class="vcard">
                         <h1 class="brand text-left"><a href="/">*args<span class="brand-secondary"> **kwargs</span></a></h1>
                         <h6 class="desc">Web Development Odds & Ends</h6>
-                        <ul class="menu linkto">
-                            <li><a href="https://github.com/averagehuman"><i class="fa fa-github"></i></a></li>
-                            <li><a href="https://twitter.com/gmflanagan"><i class="fa fa-twitter"></i></a></li>
-                            <li><a href="{{ SITEURL }}/feeds/all.atom.xml"><i class="fa fa-rss"></i></a></li>
-                            <li><a data-open="infoModal"><i class="fa fa-plus-circle"></i></a></li>
-                        </ul>
                     </div>
                 </div>
                 <div class="hide-for-small-only medium-5 columns">
+                    <div class="front-menu">
+                        <div class="button-group">
+                        {% block sitemenu %}
+                        <a class="button{% if page_name == 'index' or article %} active{% endif %}" href="{{ SITEURL }}/">Blog</a>
+                        <a class="button{% if page and page.slug == 'about' %} active{% endif %}" href="{{ SITEURL }}/about">About</a>
+                        {% endblock %}
+                        </div>
+                    </div>
+                    <!--
                     <div class="pic">
                         <img class="thumbnail" src="/assets/img/vanity.gif" alt="Fritz Lang Metropolis Gif" />
                     </div>
+                    -->
                 </div>
             </div>
         </div>
@@ -60,29 +64,19 @@
     </div>
     <!-- End Main -->
 
-    <!-- Info Modal -->
-    <div class="reveal" id="infoModal" data-reveal>
-        <button class="close-button" aria-label="Close Modal" type="button" data-close>
-            <span aria-hidden="true">&times;</span>
-        </button>
-
-        <ul class="vertical menu site-menu">
-            <li><a class="button" href="/">Home</a></li>
-            <li><a class="button" href="/about">About</a></li>
-            <li><a class="button" href="https://github.com/averagehuman">Github</a></li>
-        </ul>
-
-        <div class="site-info">
-            <p>
-                Powered by <a href="http://blog.getpelican.com/">Pelican</a> and <a href="http://foundation.zurb.com/sites/docs/">ZURB Foundation</a>.
-            </p>
-        </div>
-    </div>
-    <!-- End Info Modal -->
     <!-- Footer -->
     <footer>
-        <div class="row column footer">
-            <h6>&copy; Gerard Flanagan 2016. All Rights Reserved.</h6>
+        <div class="row footer">
+            <div class="small-5 columns">
+                <h6>&copy; Gerard Flanagan 2016. All Rights Reserved.</h6>
+            </div>
+            <div class="small-7 columns">
+                <ul class="menu linkto">
+                    <li><a href="https://github.com/averagehuman"><i class="fa fa-github"></i></a></li>
+                    <li><a href="https://twitter.com/gmflanagan"><i class="fa fa-twitter"></i></a></li>
+                    <li><a href="{{ SITEURL }}/feeds/all.atom.xml"><i class="fa fa-rss"></i></a></li>
+                </ul>
+            </div>
         </div>
     </footer>
     <!-- End Footer -->
