@@ -1,5 +1,4 @@
 .DS_Store
-.pyenv
 node_modules
 npm-debug.log
 bower_components
@@ -14,4 +13,3 @@ __pycache__
 *.tmp
 *.s3cfg
 *.lock
-

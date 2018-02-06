@@ -7,17 +7,15 @@ from pygments.formatters.html import _escape_html_table
 
 _escape_html_table[ord('%')] = u'&#37;'
 
+
 DEBUG = bool(int(os.environ.get('DEBUG', '1')))
 
-AUTHOR = os.environ.get('PELICAN_AUTHOR', 'unknown')
-
-SITENAME = os.environ.get('PELICAN_SITENAME', 'Pelican Blog')
-
+AUTHOR = "averagehuman"
+SITENAME = "argskwargs"
+SITEURL = "http://argskwargs.io"
 
 if DEBUG:
     SITEURL = 'http://localhost:8079'
-else:
-    SITEURL = os.environ.get('PELICAN_SITEURL', 'http://localhost')
 
 TIMEZONE = 'Europe/London'
 

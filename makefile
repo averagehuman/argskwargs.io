@@ -1,6 +1,5 @@
 
 SHELL := /bin/bash
-VENV := $(VIRTUAL_ENV)
 PYTHON := python3
 NODE_VERSION := 6.9.1
 BOWER := $(abspath node_modules/.bin/bower)
@@ -24,32 +23,27 @@ export PELICAN_AUTHOR
 export PELICAN_SITENAME
 export PELICAN_SITEURL
 
-.PHONY: nodejs install start serve pelican site publish clean nuke
+.PHONY: install develop publish clean nuke environ stout.create stout.deploy deploy
 
 install:
-	@source npm install && $(BOWER) install
+	@npm install
 
 # call the default gulp task (build assets, build site, start web server and watch files)
 develop:
-	@DEBUG=1 $(GULP)
-
-# build the site for development (called by gulp task)
-pelican:
-	@DEBUG=1 pelican $(INPUTDIR) -o $(BUILDDIR) -s $(PELICAN_CONFIG) -D
+	@npm start
 
 # build the site for production (called by the deploy command)
 publish:
 	@rm -rf $(OUTPUTDIR)
-	@source $(VENV)/bin/activate && DEBUG=0 $(GULP) build
-	@DEBUG=0 pelican $(INPUTDIR) -o $(OUTPUTDIR) -s $(PELICAN_CONFIG)
+	@npm build --production
 
 # stout creates the s3 bucket and cloudfront distribution correctly
 stout.create:
-	@source $(VENV)/bin/activate && stout create --bucket $(S3_BUCKET) --key $$($(GREP_AWS_CREATE_KEY)) --secret '$$($(GREP_AWS_CREATE_SECRET))'
+	@stout create --bucket $(S3_BUCKET) --key $$($(GREP_AWS_CREATE_KEY)) --secret '$$($(GREP_AWS_CREATE_SECRET))'
 
 # ...but has a problem parsing django syntax in blog posts so this fails
 stout.deploy:
-	@source $(VENV)/bin/activate && stout deploy --bucket $(S3_BUCKET) --key $$($(GREP_AWS_DEPLOY_KEY)) --secret '$$($(GREP_AWS_DEPLOY_SECRET))' --root $(OUTPUTDIR)
+	@&& stout deploy --bucket $(S3_BUCKET) --key $$($(GREP_AWS_DEPLOY_KEY)) --secret '$$($(GREP_AWS_DEPLOY_SECRET))' --root $(OUTPUTDIR)
 
 # ...so use s3cmd instead (expects a .s3cfg file in the current directory, use the credentials of the user created by stout)
 s3.deploy:
@@ -69,5 +63,4 @@ clean:
 
 nuke: clean
 	@rm -rf ./node_modules
-	@rm -rf ./bower_components
 

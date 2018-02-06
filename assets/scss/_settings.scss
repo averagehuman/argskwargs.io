@@ -40,7 +40,24 @@
 //  35. Top Bar
 
 @import 'util/util';
-@import 'colors';
+
+$nav-bg: #090c09;
+$nav-fg: #b9bcb8;
+$nav-fg-highlight: #efefef;
+$body-bg: #ffffff;
+$body-text-bg: #FFFFFF;
+$body-text-fg: #162629;
+$body-link-fg: firebrick;
+$footer-bg: $nav-bg;
+$footer-fg: $body-bg;
+$brand-bg: #8B1A1A;
+$brand-bg: #CD2626;
+$brand-bg: #76978C;
+$brand-bg: $body-text-fg;
+$brand-bg-light: lighten($brand-bg, 10%);
+$brand-bg-dark: darken($brand-bg, 10%);
+$brand-bg-lighter: lighten($brand-bg, 20%);
+$code-bg: #f7f9fa;
 
 // 1. Global
 // ---------
