@@ -5,6 +5,7 @@
   "main": "gulpfile.js",
   "scripts": {
     "start": "gulp",
+    "assets": "gulp assets",
     "build": "gulp build --production"
   },
   "author": "ZURB <foundation@zurb.com>",

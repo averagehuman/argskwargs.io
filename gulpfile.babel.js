@@ -72,6 +72,9 @@ const PRODUCTION = !!(yargs.argv.production);
 // Gulp tasks
 //-------------------------------------------------------------------------------------------------
 
+gulp.task('assets',
+ gulp.series(clean, sass));
+
 // Build the "dest" folder by running all of the below tasks
 gulp.task('build',
  gulp.series(clean, sass, pelican));
