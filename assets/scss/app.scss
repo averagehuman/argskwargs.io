@@ -59,7 +59,7 @@ footer {
     width: 100%;
     background-color: $footer-bg;
     color: $footer-fg;
-    border-top: solid 4px darken($body-link-fg, 10%);
+    border-top: solid 4px darken($body-link-fg, 5%);
     padding-top: 10px;
 }
 h1, h2, h3, h4, h5, h6 {
@@ -110,7 +110,7 @@ blockquote, blockquote p {
         font-size: 1rem;
         background: $dark-gray;
         border: 0;
-        border-bottom: 5px solid darken($body-link-fg, 10%);
+        border-bottom: 5px solid darken($body-link-fg, 2%);
         color: $light-gray;
         .fa {
             font-size: 13px;
@@ -121,7 +121,7 @@ blockquote, blockquote p {
         color: $white;
     }
     a.button.active {
-        background-color: darken($body-link-fg, 10%);
+        background-color: darken($body-link-fg, 2%);
     }
 }
 .site-menu {
@@ -184,7 +184,7 @@ blockquote, blockquote p {
     background-color: $nav-bg;
     padding: 0 12px;
     margin-bottom: 20px;
-    border-bottom: solid 5px darken($body-link-fg, 10%);
+    border-bottom: solid 5px darken($body-link-fg, 2%);
 }
 .vanity .brand {
     font-size: 2.0em;
