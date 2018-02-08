@@ -1,25 +1,34 @@
 
-Development Blog
-
+What is it?
+===========
 
 + A static blog built with `pelican`_
-+ Build harness based on `Zurb Foundation for Sites Template`_ (sass, gulp, ...)
-+ Auto-rebuild and live browser reload when content, templates or styles change.
-+ Hosted via `Amazon Cloudfront CDN`_ and `S3`_
++ Automated build and asset processing via gulp.
 
+
+Requirements
+============
+
++ npm
++ python
 
 Setup
 =====
 
-Download and install nodejs, create a virtualenv, install node and python requirements::
+1. Create and activate a python virtual environment.
 
-   make install
+   pip install -r requirements.txt
+
+2. Install gulp and associated dependencies:
+
+
+   npm install
 
 
 Editing
 =======
 
-Build site, watch files and launch nodejs server on localhost:8079::
+Build site, watch files and launch nodejs server on localhost:8000::
 
     make develop
 
