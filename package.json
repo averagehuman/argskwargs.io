@@ -6,7 +6,8 @@
   "scripts": {
     "start": "gulp",
     "assets": "gulp assets",
-    "build": "gulp build --production"
+    "build": "gulp build",
+    "publish": "gulp build --production"
   },
   "author": "ZURB <foundation@zurb.com>",
   "license": "MIT",

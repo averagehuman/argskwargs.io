@@ -61,8 +61,7 @@ const PATHS = {
   pelican: {
     src: "src",
     dest: "build",
-  },
-  dist: "dist"
+  }
 };
 
 
@@ -104,7 +103,7 @@ function javascript() {
     .pipe(gulp.dest('src/theme/static/js'));
 }
 
-// Copy images to the "dist" folder
+// Copy images to the "theme" folder
 // In production, the images are compressed
 function images() {
   var imagemin = $.if(PRODUCTION, $.imagemin({
@@ -120,7 +119,7 @@ function images() {
 // In production, the CSS is compressed
 function sass() {
   return gulp.src(PATHS.sass.src + '/app.scss')
-    .pipe($.sourcemaps.init())
+    //.pipe($.sourcemaps.init())
     .pipe($.sass({
       includePaths: PATHS.sass.includePaths
     })
@@ -129,7 +128,7 @@ function sass() {
       browsers: COMPATIBILITY
     }))
     // Comment in the pipe below to run UnCSS in production
-    //.pipe($.if(PRODUCTION, $.uncss(UNCSS_OPTIONS)))
+    .pipe($.if(PRODUCTION, $.uncss(UNCSS_OPTIONS)))
     .pipe($.if(PRODUCTION, $.cleanCss({ compatibility: 'ie9' })))
     //.pipe($.if(!PRODUCTION, $.sourcemaps.write()))
     .pipe(gulp.dest(PATHS.sass.dest))
@@ -139,8 +138,8 @@ function sass() {
 var building = false;
 // Clone the environment and set DEBUG when developing
 var env = Object.create(process.env);
-if (!PRODUCTION) {
-  env.DEBUG = '1';
+if (PRODUCTION) {
+  env.DEBUG = '0';
 }
 
 function pelican() {

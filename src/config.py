@@ -11,7 +11,7 @@ _escape_html_table[ord('%')] = u'&#37;'
 DEBUG = bool(int(os.environ.get('DEBUG', '1')))
 
 AUTHOR = "averagehuman"
-SITENAME = "argskwargs"
+SITENAME = "argskwargs.io"
 SITEURL = "http://argskwargs.io"
 
 if DEBUG:
