@@ -21,14 +21,7 @@ const COMPATIBILITY = [
   "ios >= 7"
 ];
 
-// UnCSS will use these settings
-const UNCSS_OPTIONS = {
-  html: "src/**/*.html",
-  ignore: [
-    /.foundation-mq/,
-    /^\.is-.*/,
-  ]
-};
+const PWD = process.cwd();
 
 // Gulp will reference these paths when it copies files
 const PATHS = {
@@ -65,7 +58,6 @@ const PATHS = {
 };
 
 
-const PWD = process.cwd();
 
 const PELICAN_BUILD_CMD = [
   'pelican',
@@ -76,6 +68,13 @@ const PELICAN_BUILD_CMD = [
   `${PATHS.pelican.src}/config.py`,
   '-D'
 ];
+
+// UnCSS will use these settings
+const UNCSS_OPTIONS = {
+    html: [
+        PATHS.pelican.dest + '/**/*.html'
+    ]
+};
 
 // Check for --production flag
 const PRODUCTION = !!(yargs.argv.production);
@@ -119,7 +118,7 @@ function images() {
 // In production, the CSS is compressed
 function sass() {
   return gulp.src(PATHS.sass.src + '/app.scss')
-    //.pipe($.sourcemaps.init())
+    .pipe($.sourcemaps.init())
     .pipe($.sass({
       includePaths: PATHS.sass.includePaths
     })
@@ -128,13 +127,21 @@ function sass() {
       browsers: COMPATIBILITY
     }))
     // Comment in the pipe below to run UnCSS in production
-    .pipe($.if(PRODUCTION, $.uncss(UNCSS_OPTIONS)))
-    .pipe($.if(PRODUCTION, $.cleanCss({ compatibility: 'ie9' })))
+    //.pipe($.if(PRODUCTION, $.uncss(UNCSS_OPTIONS)))
+    //.pipe($.if(PRODUCTION, $.cleanCss({ compatibility: 'ie9' })))
     //.pipe($.if(!PRODUCTION, $.sourcemaps.write()))
     .pipe(gulp.dest(PATHS.sass.dest))
     .pipe(browser.reload({ stream: true }));
 }
 
+function uncss() {
+  return gulp.src(PATHS.pelican.dest + '/assets/css/app.css')
+    .pipe($.if(PRODUCTION, $.uncss(UNCSS_OPTIONS)))
+    .pipe($.if(PRODUCTION, $.cleanCss({ compatibility: 'ie9' })))
+    .pipe($.rename('app-final.css'))
+    .pipe(gulp.dest(PATHS.pelican.dest + '/assets/css/'));
+}
+    
 var building = false;
 // Clone the environment and set DEBUG when developing
 var env = Object.create(process.env);
@@ -190,7 +197,7 @@ function watch() {
 gulp.task('assets', gulp.parallel(sass, javascript, images, copy));
 
 // Build the "dest" folder by running all of the below tasks
-gulp.task('build', gulp.series(clean, 'assets', pelican));
+gulp.task('build', gulp.series(clean, 'assets', pelican, uncss));
 
 // Build the site, run the server, and watch for file changes
 gulp.task('default', gulp.series('build', server, watch));
