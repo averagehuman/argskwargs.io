@@ -35,7 +35,7 @@ stout.deploy:
 
 # ...so use s3cmd instead (expects a .s3cfg file in $PWD or $HOME, use the credentials of the user created by stout)
 s3.deploy:
-	@s3cmd sync build/ s3://$(S3_BUCKET) --acl-public --delete-removed --guess-mime-type --config=$(PWD)/.s3cfg
+	@s3cmd sync build/ s3://$(S3_BUCKET) --acl-public --delete-removed --cf-invalidate --no-mime-magic --guess-mime-type --config=$(PWD)/.s3cfg
 
 deploy: publish s3.deploy
 
