@@ -186,7 +186,7 @@ function watch() {
   gulp.watch(PATHS.sass.src + '/**/*.scss').on('all', sass);
   gulp.watch([
     `${PATHS.pelican.src}/**/*`,
-  ]).on('all', gulp.series(pelican, reload));
+  ]).on('all', gulp.series(pelican, uncss, reload));
 }
 
 //-------------------------------------------------------------------------------------------------

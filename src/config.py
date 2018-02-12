@@ -13,7 +13,7 @@ DEBUG = bool(int(os.environ.get('DEBUG', '1')))
 AUTHOR = "averagehuman"
 SITENAME = "argskwargs.io"
 SITEURL = "http://argskwargs.io"
-VERSION = '20180208'
+VERSION = '20180212'
 
 if DEBUG:
     SITEURL = 'http://localhost:8000'
