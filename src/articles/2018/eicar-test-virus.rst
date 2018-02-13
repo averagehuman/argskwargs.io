@@ -15,13 +15,12 @@ Testing Anti-Virus Software With EICAR
 
 The EICAR Test Virus is a short text file developed by the `European Institute for Computer Anti-Virus Research (EICAR)`_
 for testing anitvirus software. It is a valid DOS program and produces sensible
-results when run (it prints EICAR-STANDARD-ANTIVIRUS-TEST-FILE!), but it is
-entirely safe.
+results when run (it prints EICAR-STANDARD-ANTIVIRUS-TEST-FILE!).
 
-All correctly functioning virus scanners should flag EICAR as a malicious file. 
-Whether a file that only *contains* the test virus text will be considered
-malicious may be product-dependent, but I have observed that Sophos will do so
-at least.
+Although it is entirely safe, all correctly functioning virus scanners should flag
+EICAR as a malicious file.  Whether a file that only *contains* the test virus text
+will be considered malicious might be product-dependent, but I have observed that
+Sophos will do so at least.
 
 
 The EICAR virus is:
@@ -42,7 +41,7 @@ the very virus scanner that you are trying to check...  But this is easy enough 
 around: store the EICAR text in encoded form and decode on the fly as needs be.
 
 
-For example, in bash say, decode from ROT13 as follows:
+For example, in bash say, decode from `ROT13`_ as follows:
 
 .. code-block:: bash
 
@@ -64,4 +63,5 @@ of the form field expected by the web server.
 
 
 .. _European Institute for Computer Anti-Virus Research (EICAR): http://www.eicar.org
+.. _ROT13: https://en.wikipedia.org/wiki/ROT13
 
