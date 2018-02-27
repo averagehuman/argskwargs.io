@@ -447,6 +447,18 @@ blockquote.bigstyle cite {
     font-size: 14px;
 }
 
+.gist {
+    table.highlight tbody {
+        tr {
+            background: #fffff2;
+        }
+        .blob-num {
+            color: #ced4da;
+            background-color: #495057;
+            pointer-events: none;
+        }
+    }
+}
 /* pygments code styles */
 @import 'github';
 
